@@ -7,13 +7,21 @@
             body { margin:0; background:#ccc;  font-family: Arial, Helvetica, sans-serif; }
         </style>
     </head>
-    <body style="display: flex; justify-content: center;height: 100%;">
+    
+    <body id="main" style="display: flex; justify-content: center;height: 100%;">
         <h1 style="align-self: center;">Just a Test</h1>
     </body>
+
     <script>
 
         const { ipcRenderer } = require('electron');
-        ipcRenderer.send('bye', 'ping');
+
+
+        var main = document.getElementById('main');
+
+        main.addEventListener('click', e => {
+            ipcRenderer.send('bye');
+        });
 
     </script>
 </html>
