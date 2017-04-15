@@ -8,8 +8,8 @@
     "electron-packager": "^8.4.0"
   },
   "scripts": {
-    "start": "sudo startx ./node_modules/electron/dist/electron ."
-    //"start": "electron ."
+    "start": "sudo startx ./node_modules/electron/dist/electron .",
+    "dev": "electron ."
   },
   "author": "",
   "license": "MIT"
