@@ -12,16 +12,5 @@
         <h1 style="align-self: center;">Just a Test</h1>
     </body>
 
-    <script>
-
-        const { ipcRenderer } = require('electron');
-
-
-        var main = document.getElementById('main');
-
-        main.addEventListener('click', e => {
-            ipcRenderer.send('bye');
-        });
-
-    </script>
+    <script src="index.js"></script>
 </html>
