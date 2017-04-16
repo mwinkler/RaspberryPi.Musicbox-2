@@ -1,0 +1,1 @@
+startx ./node_modules/electron/dist/electron ./dist/main.js

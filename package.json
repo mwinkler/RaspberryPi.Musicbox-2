@@ -3,13 +3,36 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/main.js",
-  "dependencies": {
-    "electron": "^1.4.13",
-    "electron-packager": "^8.4.0"
-  },
   "scripts": {
-    "start": "sudo startx ./node_modules/electron/dist/electron .",
-    "dev": "electron ."
+    "build": "webpack",
+    "start": "sudo start.sh",
+    "dev": "electron ./dist/main.js"
+  },
+  "dependencies": {
+    "@types/react": "^15.0.18",
+    "@types/react-dom": "^0.14.23",
+    "electron": "^1.4.13",
+    "mpd": "^1.3.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "file-loader": "^0.10.1",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.28.0",
+    "node-sass": "^4.5.0",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.6",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.3.0"
   },
   "author": "",
   "license": "MIT"
