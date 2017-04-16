@@ -16,12 +16,13 @@ client.on('ready', () => {
     console.log('MPC ready');
 });
 
-client.sendCommand('status', [], (err, result) => {
-    console.log(result);
-});
+// client.sendCommand('status', [], (err, result) => {
+//     console.log(result);
+// });
 
 ipcMain.on('mpc-toggle', () => {
-    client.sendCommand('toggle', [], (err, result) => {
+    console.log('mpc-toggle');
+    client.sendCommand(mpd.cmd('toggle', []), (err, result) => {
         console.log(result);
     });
 })
