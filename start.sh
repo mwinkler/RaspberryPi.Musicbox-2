@@ -1,1 +1,1 @@
-startx ./node_modules/electron/dist/electron ./dist/main.js
+startx ./node_modules/electron/dist/electron ./build/main.js
