@@ -5,10 +5,11 @@
   "main": "src/main.js",
   "scripts": {
     "build": "webpack",
-    "start": "sudo start.sh",
+    "start": "sudo bash start.sh",
     "dev": "electron ./dist/main.js"
   },
   "dependencies": {
+    "@types/electron": "^1.4.35",
     "@types/react": "^15.0.18",
     "@types/react-dom": "^0.14.23",
     "electron": "^1.4.13",

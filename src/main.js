@@ -1,7 +1,7 @@
 
-const { app, BrowserWindow, ipcMain } = require('electron')
-const path = require('path')
-const url = require('url')
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const url = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,7 +25,7 @@ app.on('ready', () => {
     }));
 
     // Open the DevTools.
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools();
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -43,9 +43,4 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-ipcMain.on('bye', (event, arg) => {
-  //console.log(arg)  // prints "ping"
-  //event.sender.send('asynchronous-reply', 'pong')
-  app.quit();
-})
+require('./backend/mpc');

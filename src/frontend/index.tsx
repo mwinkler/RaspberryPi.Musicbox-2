@@ -2,14 +2,10 @@
 import * as ReactDom from 'react-dom';
 import * as React from 'react';
 
+import View from './components/controls'
+
 document.querySelector('body').innerHTML = '<app></app>';
 
 ReactDom.render(
-    <h1>Hello</h1>,
+    <View></View>,
     document.querySelector('app'));
-
-// var main = document.getElementById('main');
-
-// main.addEventListener('click', e => {
-//     ipcRenderer.send('bye');
-// });

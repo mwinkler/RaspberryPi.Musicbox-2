@@ -16,7 +16,10 @@ const filenameExt = filename + '.[ext]'
 const plugins = [
     new Clean([path.resolve(output, '*')]),
     new Html({ filename: 'index.html', chunks: ['frontend'] }),
-    new Copy([{ from: path.resolve(src, 'main.js') }])
+    new Copy([
+        { from: path.resolve(src, 'main.js') },
+        { from: path.resolve(src, 'backend'), to: 'backend' }
+    ])
 ];
 
 // production build plugins
@@ -47,9 +50,9 @@ module.exports = {
                 options: {
                     compilerOptions: {
                         lib: [
-                            "DOM",
-                            "ES2015"
-                        ]
+                            'dom',
+                            'es2015'
+                        ],
                     }
                 }
             },
@@ -82,5 +85,6 @@ module.exports = {
     devtool: isProd
         ? false
         : 'inline-source-map',
-    plugins: plugins
+    plugins: plugins,
+    target: 'electron-renderer'
 }
