@@ -6,6 +6,14 @@ export default () => {
 
     const mpd = new mpdsocket('localhost','6600');
 
+    function sendMpdCommand(cmd) {
+        console.log(cmd);
+        
+        mpd.send(cmd, function(r) {
+            console.log(JSON.stringify(r));
+        });
+    }
+    
     ipcMain.on('bye', (event, arg) => {
         console.log('Bye!')  // prints "ping"
         app.quit();
@@ -13,21 +21,9 @@ export default () => {
 
     mpd.on('connect', function() {
         console.log('mpd connected');
-
-        mpd.send('status', function(r) {
-            console.log(r);
-        });
     });
 
-    // client.sendCommand('status', [], (err, result) => {
-    //     console.log(result);
-    // });
-
-    ipcMain.on('mpc-toggle', () => {
-        console.log('mpc-toggle');
-        
-        mpd.send('toggle', function(r) {
-            console.log(r);
-        });
-    })
+    ipcMain.on('mpd-play', () => sendMpdCommand('play'));
+    ipcMain.on('mpd-stop', () => sendMpdCommand('stop'));
+    ipcMain.on('mpd-status', () => sendMpdCommand('status'));
 }
