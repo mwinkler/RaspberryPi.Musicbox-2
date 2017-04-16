@@ -6,7 +6,7 @@ const ipcRenderer = require('electron').ipcRenderer;
 export default class View1 extends React.Component<{}, {}> {
 
     click() {
-        ipcRenderer.send('bye');
+        ipcRenderer.send('bye ');
     }
 
     toggle() {

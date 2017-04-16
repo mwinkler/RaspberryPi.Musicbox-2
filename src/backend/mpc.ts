@@ -1,21 +1,22 @@
 
 import { app, ipcMain } from 'electron';
-import * as mpd from 'mpd';
+import * as mpdsocket from 'mpdsocket';
 
 export default () => {
+
+    const mpd = new mpdsocket('localhost','6600');
 
     ipcMain.on('bye', (event, arg) => {
         console.log('Bye!')  // prints "ping"
         app.quit();
     })
 
-    const client = mpd.connect({
-        port: 6600,
-        host: 'localhost'
-    });
+    mpd.on('connect', function() {
+        console.log('mpd connected');
 
-    client.on('ready', () => {
-        console.log('MPC ready');
+        mpd.send('status', function(r) {
+            console.log(r);
+        });
     });
 
     // client.sendCommand('status', [], (err, result) => {
@@ -24,8 +25,9 @@ export default () => {
 
     ipcMain.on('mpc-toggle', () => {
         console.log('mpc-toggle');
-        client.sendCommand(mpd.cmd('toggle', []), (err, result) => {
-            console.log(result);
+        
+        mpd.send('toggle', function(r) {
+            console.log(r);
         });
     })
 }

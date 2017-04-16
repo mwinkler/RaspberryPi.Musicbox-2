@@ -20,7 +20,7 @@
     "@types/react": "^15.0.18",
     "@types/react-dom": "^0.14.23",
     "electron": "^1.4.13",
-    "mpd": "^1.3.0",
+    "mpdsocket": "^0.1.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
