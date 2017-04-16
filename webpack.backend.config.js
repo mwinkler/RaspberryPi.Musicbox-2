@@ -11,7 +11,7 @@ const filenameExt = filename + '.[ext]';
 
 module.exports = {
     entry: {
-        main: path.resolve(src, 'main.ts')
+        main: path.resolve(src, 'backend', 'main.ts')
     },
     output: {
         path: path.resolve(__dirname, output),
