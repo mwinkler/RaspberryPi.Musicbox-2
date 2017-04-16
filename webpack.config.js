@@ -45,16 +45,7 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
-                exclude: /node_modules/,
-                options: {
-                    compilerOptions: {
-                        lib: [
-                            'dom',
-                            'es2015'
-                        ],
-                    }
-                }
+                loader: 'ts-loader'
             },
             {
                 test: /\.s?css$/,
