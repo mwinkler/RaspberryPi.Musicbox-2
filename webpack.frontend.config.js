@@ -1,36 +1,23 @@
+
 const path = require('path');
 const webpack = require('webpack');
 const ExtractText = require('extract-text-webpack-plugin');
 const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
-const Copy = require('copy-webpack-plugin');
 
 // vars
 const isProd = (process.env.NODE_ENV === 'production');
 const src = 'src';
-const output = 'dist';
+const output = 'build';
 const filename = `[name]${isProd ? '-[hash:6]' : ''}`;
-const filenameExt = filename + '.[ext]'
+const filenameExt = filename + '.[ext]';
 
 // plugins
 const plugins = [
     new Clean([path.resolve(output, '*')]),
     new Html({ filename: 'index.html', chunks: ['frontend'] }),
-    new Copy([
-        { from: path.resolve(src, 'main.js') },
-        { from: path.resolve(src, 'backend'), to: 'backend' }
-    ])
+    new ExtractText(filename + '.css')
 ];
-
-// production build plugins
-if (isProd) {
-    plugins.push(new ExtractText(filename + '.css'));
-    plugins.push(new webpack.optimize.UglifyJsPlugin({
-        mangle: { screw_ie8: true },
-        compress: { screw_ie8: true },
-        comments: false
-    }));
-}
 
 module.exports = {
     entry: {
@@ -49,9 +36,7 @@ module.exports = {
             },
             {
                 test: /\.s?css$/,
-                use: isProd
-                    ? ExtractText.extract(['css-loader?minimize', 'sass-loader'])
-                    : ['style-loader', 'css-loader', 'sass-loader']
+                use: ExtractText.extract(['css-loader', 'sass-loader'])
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -73,9 +58,7 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
     },
-    devtool: isProd
-        ? false
-        : 'inline-source-map',
+    devtool: 'inline-source-map',
     plugins: plugins,
     target: 'electron-renderer'
 }
