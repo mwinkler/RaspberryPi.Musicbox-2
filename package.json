@@ -25,7 +25,6 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "clean-webpack-plugin": "^0.1.16",
     "concurrently": "^3.4.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
