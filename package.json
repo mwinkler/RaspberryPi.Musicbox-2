@@ -1,8 +1,8 @@
 {
-  "name": "electron-demo",
+  "name": "musicbox",
   "version": "1.0.0",
   "description": "",
-  "main": "src/main.js",
+  "main": "build/main.js",
   "scripts": {
     "clean": "rimraf build",
     "build": "npm run clean && npm run build-frontend && npm run build-backend",
@@ -12,21 +12,24 @@
     "build-backend": "webpack --config webpack.backend.config.js",
     "build-backend-watch": "webpack --config webpack.backend.config.js --watch",
     "start": "sudo bash start.sh",
-    "start-build": "electron ./build/main.js"
+    "start-build": "electron .",
+    "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l"
   },
   "dependencies": {
     "@types/electron": "^1.4.35",
     "@types/node": "^7.0.12",
     "@types/react": "^15.0.18",
     "@types/react-dom": "^0.14.23",
-    "electron": "^1.4.13",
     "mpdsocket": "^0.1.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
     "concurrently": "^3.4.0",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
+    "electron": "^1.4.13",
+    "electron-packager": "^8.6.0",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.10.1",
     "html-loader": "^0.4.5",
