@@ -1,26 +1,29 @@
 
 import { app, ipcMain } from 'electron';
-import * as mpdsocket from 'mpdsocket';
+import * as mpd from 'mpd';
 
 export default () => {
 
-    const mpd = new mpdsocket('localhost','6600');
+    const client = mpd.connect({
+        port: 6600,
+        host: 'localhost'
+    });
+
+    client.on('ready', () => {
+        console.log('MPC ready');
+    });
 
     function sendMpdCommand(cmd) {
         console.log(cmd);
         
-        mpd.send(cmd, function(r) {
-            console.log(JSON.stringify(r));
+        client.sendCommand(mpd.cmd(cmd, []), (err, result) => {
+            console.log(JSON.stringify(result));
         });
     }
     
     ipcMain.on('bye', (event, arg) => {
         console.log('Bye!')  // prints "ping"
         app.quit();
-    })
-
-    mpd.on('connect', function() {
-        console.log('mpd connected');
     });
 
     ipcMain.on('mpd-play', () => sendMpdCommand('play'));
