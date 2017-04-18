@@ -2,6 +2,9 @@
 .mpc-button {
     display: flex;
     border: 1px solid #777;
-    padding: 25px;
     flex: 1;
+    justify-content: center;
+    align-items: center;
+    color:#777;
+    background-color: #444;
 }

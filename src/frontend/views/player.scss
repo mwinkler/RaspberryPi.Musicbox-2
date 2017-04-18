@@ -1,8 +1,11 @@
 
 .player {
-
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
 }
 
 .player-controls {
     display: flex;
+    height: 25vh;
 }

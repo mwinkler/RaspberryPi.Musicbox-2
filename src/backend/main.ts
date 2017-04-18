@@ -17,7 +17,7 @@ app.on('ready', () => {
     // Create the browser window.
     win = new BrowserWindow();
 
-    win.setMenu(null);
+    //win.setMenu(null);
 
     // and load the index.html of the app.
     win.loadURL('file://' + __dirname + '/index.html');

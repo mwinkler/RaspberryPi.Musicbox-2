@@ -5,7 +5,7 @@ import './ipc-button.scss';
 
 interface IMpcButtonProperties {
     command: string;
-    title: string;
+    icon: string;
 }
 
 export default class IpcButton extends React.Component<IMpcButtonProperties, {}> {
@@ -21,7 +21,7 @@ export default class IpcButton extends React.Component<IMpcButtonProperties, {}>
     render() {
         return (
             <div className="mpc-button" onClick={() => this.click()}>
-                <span>{this.props.title}</span>
+                <i className={'fa ' + this.props.icon}></i>
             </div>
         )
     }
