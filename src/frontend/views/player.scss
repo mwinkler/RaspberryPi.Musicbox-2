@@ -5,6 +5,26 @@
     flex-direction: column;
 }
 
+.player-cover {
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-cover-image {
+    // background-image: url(../images/cover.png);
+    height: 62vh;
+    width: 62vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.player-title {
+    height: 10vh;
+}
+
 .player-controls {
     display: flex;
     height: 25vh;

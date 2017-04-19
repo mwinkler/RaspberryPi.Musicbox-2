@@ -8,5 +8,5 @@
       "es2015"
     ]
   },
-  "include": [ "src" ]
+  "include": [ "src" , "modules.d.ts" ]
 }
