@@ -1,4 +1,22 @@
 
+@import '../main';
+
+$nav-width: 10vw;
+
 .selector {
-    
+    display: flex;
+
+    > .nav {
+        height: 100vh;
+        width: $nav-width;
+        background-color: yellow;
+
+        @include content_center();
+    }
+
+    > .grid {
+        height: 100vh;
+        background-color: greenyellow;
+        flex: 1;
+    }
 }

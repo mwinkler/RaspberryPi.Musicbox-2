@@ -9,5 +9,6 @@ import Selector from './views/selector';
 document.querySelector('body').innerHTML = '<app></app>';
 
 ReactDom.render(
-    <Player></Player>,
+    //<Player></Player>,
+    <Selector></Selector>,
     document.querySelector('app'));

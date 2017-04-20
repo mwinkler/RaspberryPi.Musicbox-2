@@ -1,12 +1,11 @@
 
-@import '../common';
+@import '../main';
 
 .mpc-button {
-    display: flex;
     border: 1px solid $color-line;
     flex: 1;
-    justify-content: center;
-    align-items: center;
     color: $color-text;
     background-color: $color-button-background;
+
+    @include content_center();
 }

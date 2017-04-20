@@ -1,4 +1,6 @@
 
+@import '../main';
+
 $height_cover: 65vh;
 $height_title: 10vh;
 $height_controls: 25vh;
@@ -8,13 +10,13 @@ $height_controls: 25vh;
     align-content: space-between;
     flex-direction: column;
 
-    .cover {
+    > .cover {
         height: $height_cover;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        .image {
+        > .image {
             height: $height_cover - 3;
             width: $height_cover - 3;
             background-size: contain;
@@ -23,11 +25,11 @@ $height_controls: 25vh;
         }
     }
 
-    .title {
+    > .title {
         height: $height_title;
     }
 
-    .controls {
+    > .controls {
         display: flex;
         height: $height_controls;
     }

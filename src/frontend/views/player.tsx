@@ -4,8 +4,6 @@ import './player.scss';
 import IpcButton from '../components/ipc-button';
 import * as demoCover from '../images/cover.png';
 
-console.log('demoCover: ' + demoCover);
-
 interface IPlayerProperties {
     cover?: string;
 }
@@ -18,8 +16,7 @@ export default class Player extends React.Component<IPlayerProperties, {}> {
         super(props);
 
         this.playerCoverImageStyles = {
-            backgroundImage: `url(${demoCover})`,
-            backgroundColor: '#777'
+            backgroundImage: `url(${demoCover})`
         }
     }
 
