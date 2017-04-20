@@ -1,7 +1,7 @@
 {
   "name": "musicbox",
   "version": "1.0.0",
-  "description": "",
+  "description": "musicbox electron app",
   "main": "build/main.js",
   "scripts": {
     "clean": "rimraf build",
@@ -11,7 +11,7 @@
     "build-frontend-watch": "webpack --config webpack.frontend.config.js --watch",
     "build-backend": "webpack --config webpack.backend.config.js",
     "build-backend-watch": "webpack --config webpack.backend.config.js --watch",
-    "start": "electron .",
+    "start": "electron . --enable-logging",
     "start-debug": "electron . --debug",
     "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l"
   },

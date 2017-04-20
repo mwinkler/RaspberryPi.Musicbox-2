@@ -1,31 +1,34 @@
 
+$height_cover: 65vh;
+$height_title: 10vh;
+$height_controls: 25vh;
+
 .player {
     display: flex;
     align-content: space-between;
     flex-direction: column;
-}
 
-.player-cover {
-    height: 65vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .cover {
+        height: $height_cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-.player-cover-image {
-    // background-image: url(../images/cover.png);
-    height: 62vh;
-    width: 62vh;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
+        .image {
+            height: $height_cover - 3;
+            width: $height_cover - 3;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    }
 
-.player-title {
-    height: 10vh;
-}
+    .title {
+        height: $height_title;
+    }
 
-.player-controls {
-    display: flex;
-    height: 25vh;
+    .controls {
+        display: flex;
+        height: $height_controls;
+    }
 }

@@ -2,9 +2,9 @@
 import * as React from 'react';
 import './player.scss';
 import IpcButton from '../components/ipc-button';
-import demoCover from '../images/cover.png';
+import * as demoCover from '../images/cover.png';
 
-console.log(demoCover);
+console.log('demoCover: ' + demoCover);
 
 interface IPlayerProperties {
     cover?: string;
@@ -26,17 +26,17 @@ export default class Player extends React.Component<IPlayerProperties, {}> {
     render() {
         return (
             <div className="player">
-                <div className="player-cover">
-                    <div className="player-cover-image" style={this.playerCoverImageStyles}></div>
+                <div className="cover">
+                    <div className="image" style={this.playerCoverImageStyles}></div>
                 </div>
-                <div className="player-title">
+                <div className="title">
                     Current Title
                 </div>
-                <div className="player-controls">
-                    <IpcButton command="play" icon="fa-play"></IpcButton>
-                    <IpcButton command="stop" icon="fa-stop"></IpcButton>
-                    <IpcButton command="next" icon="fa-step-forward"></IpcButton>
-                    <IpcButton command="previous" icon="fa-step-backward"></IpcButton>
+                <div className="controls">
+                    <IpcButton command="mpd-previous" icon="fa-step-backward"></IpcButton>
+                    <IpcButton command="mpd-play" icon="fa-play"></IpcButton>
+                    <IpcButton command="mpd-stop" icon="fa-stop"></IpcButton>
+                    <IpcButton command="mpd-next" icon="fa-step-forward"></IpcButton>
                 </div>
             </div>
         )

@@ -1,8 +1,10 @@
 
+@import './common';
+
 body { 
     padding:0;
     margin:0; 
-    font-size: 10vh;
+    font-size: $font-size;
     background-color: #000;
-    color:#777;
+    color: $color-text;
 }
