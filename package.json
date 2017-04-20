@@ -11,8 +11,8 @@
     "build-frontend-watch": "webpack --config webpack.frontend.config.js --watch",
     "build-backend": "webpack --config webpack.backend.config.js",
     "build-backend-watch": "webpack --config webpack.backend.config.js --watch",
-    "start": "electron . --enable-logging",
-    "start-debug": "electron . --debug",
+    "start": "electron . --local",
+    "start-debug": "electron . --debug --enable-logging",
     "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l"
   },
   "dependencies": {
