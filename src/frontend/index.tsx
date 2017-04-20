@@ -12,3 +12,4 @@ ReactDom.render(
     //<Player></Player>,
     <Selector></Selector>,
     document.querySelector('app'));
+    

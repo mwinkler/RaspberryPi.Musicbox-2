@@ -2,6 +2,8 @@
 @import '../main';
 
 $nav-width: 10vw;
+$items-h: 3;
+$items-v: 2;
 
 .selector {
     display: flex;
@@ -9,7 +11,7 @@ $nav-width: 10vw;
     > .nav {
         height: 100vh;
         width: $nav-width;
-        background-color: yellow;
+        background-color: $color-button-background;
 
         @include content_center();
     }
@@ -18,5 +20,16 @@ $nav-width: 10vw;
         height: 100vh;
         background-color: greenyellow;
         flex: 1;
+        overflow: hidden;
+
+        > .item {
+            float: left;
+            height: 100vh / $items-v;
+            width: (100 - $nav-width * 2) / $items-h;
+            border: 1px solid $color-line;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center center;
+        }
     }
 }
