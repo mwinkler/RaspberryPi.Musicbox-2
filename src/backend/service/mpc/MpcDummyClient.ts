@@ -1,6 +1,4 @@
 
-import * as moment from 'moment';
-
 export default {
     
     connect(): IMpcConnection {
@@ -14,7 +12,7 @@ export default {
 
         return {
             
-            getCurrentState() {
+            getStatus() {
 
                 return new Promise<IMpcState>((ret, rej) => {
                     

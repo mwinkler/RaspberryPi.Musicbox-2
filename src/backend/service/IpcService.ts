@@ -19,5 +19,9 @@ export default {
         ipcMain.on('mpd-next', () => mpcConnection.nextTrack());
         ipcMain.on('mpd-previous', () => mpcConnection.previousTrack());
         //ipcMain.on('mpd-status', () => mpcConnection.sendCommand('status'));
+
+        setInterval(() => {
+            mpcConnection.getStatus();
+        }, 1000);
     }
 };

@@ -12,26 +12,43 @@ export default {
             host: 'localhost'
         });
 
-        const sendCommand = (command) => {
+        const sendCommand = (command): Promise<{err: string, result: string}> => {
 
-            console.log(`Send mpd command: '${command}'`);
+            return new Promise<{err: string, result: string}>((ret, rej) => {
 
-            client.sendCommand(mpd.cmd(command, []), (err, result) => {
-                
-                console.log(`Mpd command '${command}' response: ${JSON.stringify(result)}`);
+                console.log(`Send MPD command '${command}'`);
+
+                client.sendCommand(mpd.cmd(command, []), (err, result) => {
+                    
+                    console.log(`MPD command '${command}' result: '${result}', err: '${err}'`);
+
+                    ret({
+                        err: err,
+                        result: result
+                    });
+                });
             });
         }
         
         return {
             
-            getCurrentState() {
+            getStatus() {
 
-                return new Promise<IMpcState>((ret, rej) => {
+                return new Promise<IMpcState>(async (ret, rej) => {
                     
-                    client.sendCommand(mpd.cmd('state', []), (err, result) => {
-                        ret(result);
-                        //console.log(`Mpd command '${command}' response: ${JSON.stringify(result)}`);
-                    });
+                    let result = await sendCommand('status');
+
+                    let state = {
+                        playing: false,
+                        album: '',
+                        title: '',
+                        trackNumber: 1,
+                        totalTracks: 10,
+                        volume: 50,
+                        time: new Date(1)
+                    };
+
+                    ret(state);
                 });
             },
 

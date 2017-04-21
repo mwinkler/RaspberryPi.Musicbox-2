@@ -4,7 +4,7 @@ interface IMpcClient {
 }
 
 interface IMpcConnection {
-    getCurrentState(): Promise<IMpcState>;
+    getStatus(): Promise<IMpcState>;
     togglePlay();
     nextTrack();
     previousTrack();
