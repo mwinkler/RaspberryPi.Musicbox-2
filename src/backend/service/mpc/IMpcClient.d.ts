@@ -14,4 +14,8 @@ interface IMpcState {
     playing: boolean;
     title: string;
     album: string;
+    trackNumber: number;
+    totalTracks: number;
+    volume: number;
+    time: Date;
 }

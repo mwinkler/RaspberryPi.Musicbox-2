@@ -27,6 +27,7 @@ export default {
             getCurrentState() {
 
                 return new Promise<IMpcState>((ret, rej) => {
+                    
                     client.sendCommand(mpd.cmd('state', []), (err, result) => {
                         ret(result);
                         //console.log(`Mpd command '${command}' response: ${JSON.stringify(result)}`);
