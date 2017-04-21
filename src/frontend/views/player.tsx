@@ -8,7 +8,7 @@ interface IPlayerProperties {
     cover?: string;
 }
 
-export default class Player extends React.Component<IPlayerProperties, {}> {
+export default class extends React.Component<IPlayerProperties, {}> {
 
     playerCoverImageStyles: React.CSSProperties;
 

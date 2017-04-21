@@ -12,7 +12,7 @@ interface ISelectorItem {
     coverUrl?: string;
 }
 
-export default class Selector extends React.Component<ISelectorProperties, {}> {
+export default class extends React.Component<ISelectorProperties, {}> {
     
     sampleItems: ISelectorItem[];
 

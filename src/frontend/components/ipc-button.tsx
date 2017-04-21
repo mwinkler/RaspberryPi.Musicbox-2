@@ -8,7 +8,7 @@ interface IMpcButtonProperties {
     icon: string;
 }
 
-export default class IpcButton extends React.Component<IMpcButtonProperties, {}> {
+export default class extends React.Component<IMpcButtonProperties, {}> {
 
     constructor(properties: IMpcButtonProperties) {
         super(properties);
