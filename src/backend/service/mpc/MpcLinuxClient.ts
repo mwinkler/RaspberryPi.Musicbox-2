@@ -35,15 +35,15 @@ export default {
             },
 
             togglePlay() {
-
+                sendCommand('play');
             },
 
             nextTrack() {
-
+                sendCommand('next');
             },
 
             previousTrack() {
-
+                sendCommand('previous');
             }
         }
     }
