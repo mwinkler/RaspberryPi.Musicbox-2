@@ -13,7 +13,7 @@ export default {
             app.quit();
         });
 
-        ipcMain.on('mpd-play', () => mpcConnection.sendCommand('play'));
+        ipcMain.on('mpd-togglePlay', () => mpcConnection.togglePlay());
         ipcMain.on('mpd-stop', () => mpcConnection.sendCommand('stop'));
         ipcMain.on('mpd-next', () => mpcConnection.sendCommand('next'));
         ipcMain.on('mpd-previous', () => mpcConnection.sendCommand('previous'));

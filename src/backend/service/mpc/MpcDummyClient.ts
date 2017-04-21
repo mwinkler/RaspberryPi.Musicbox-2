@@ -5,8 +5,29 @@ export default {
 
         console.log('Connect to dummy MPD deamon');
 
+        var playing = false;
+        let p = new Promise<IMpcState>(() => {});
+
         return {
             
+            getCurrentState() {
+
+                return new Promise<IMpcState>((ret, rej) => {
+                    ret({
+                        playing: playing,
+                        album: '',
+                        title: ''
+                    });
+                });
+            },
+
+            togglePlay() {
+
+                playing = !playing;
+
+                console.log(`Toggle play to ${playing}`);
+            },
+
             sendCommand(command: string) {
 
                 console.log(`Send mpd command: '${command}'`);

@@ -14,6 +14,20 @@ export default {
         
         return {
             
+            getCurrentState() {
+
+                return new Promise<IMpcState>((ret, rej) => {
+                    client.sendCommand(mpd.cmd('state', []), (err, result) => {
+                        ret(result);
+                        //console.log(`Mpd command '${command}' response: ${JSON.stringify(result)}`);
+                    });
+                });
+            },
+
+            togglePlay() {
+
+            },
+
             sendCommand(command: string) {
                 
                 console.log(`Send mpd command: '${command}'`);
