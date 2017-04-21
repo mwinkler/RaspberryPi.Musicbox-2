@@ -11,6 +11,16 @@ export default {
             port: 6600,
             host: 'localhost'
         });
+
+        const sendCommand = (command) => {
+
+            console.log(`Send mpd command: '${command}'`);
+
+            client.sendCommand(mpd.cmd(command, []), (err, result) => {
+                
+                console.log(`Mpd command '${command}' response: ${JSON.stringify(result)}`);
+            });
+        }
         
         return {
             
@@ -28,14 +38,12 @@ export default {
 
             },
 
-            sendCommand(command: string) {
-                
-                console.log(`Send mpd command: '${command}'`);
+            nextTrack() {
 
-                client.sendCommand(mpd.cmd(command, []), (err, result) => {
-                    
-                    console.log(`Mpd command '${command}' response: ${JSON.stringify(result)}`);
-                });
+            },
+
+            previousTrack() {
+
             }
         }
     }

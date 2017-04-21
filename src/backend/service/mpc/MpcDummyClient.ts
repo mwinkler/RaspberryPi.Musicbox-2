@@ -28,9 +28,12 @@ export default {
                 console.log(`Toggle play to ${playing}`);
             },
 
-            sendCommand(command: string) {
+            nextTrack() {
 
-                console.log(`Send mpd command: '${command}'`);
+            },
+
+            previousTrack() {
+
             }
         }
     }

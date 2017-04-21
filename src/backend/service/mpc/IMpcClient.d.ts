@@ -6,7 +6,8 @@ interface IMpcClient {
 interface IMpcConnection {
     getCurrentState(): Promise<IMpcState>;
     togglePlay();
-    sendCommand(command: string): void;
+    nextTrack();
+    previousTrack();
 }
 
 interface IMpcState {

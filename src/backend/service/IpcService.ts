@@ -1,6 +1,7 @@
 
 import { app, ipcMain } from 'electron';
 import MpcFactory from './mpc/MpcFactory';
+import MpcCommand from './IpcCommand';
 
 export default {
 
@@ -14,9 +15,9 @@ export default {
         });
 
         ipcMain.on('mpd-togglePlay', () => mpcConnection.togglePlay());
-        ipcMain.on('mpd-stop', () => mpcConnection.sendCommand('stop'));
-        ipcMain.on('mpd-next', () => mpcConnection.sendCommand('next'));
-        ipcMain.on('mpd-previous', () => mpcConnection.sendCommand('previous'));
-        ipcMain.on('mpd-status', () => mpcConnection.sendCommand('status'));
+        //ipcMain.on('mpd-stop', () => mpcConnection.sendCommand('stop'));
+        ipcMain.on('mpd-next', () => mpcConnection.nextTrack());
+        ipcMain.on('mpd-previous', () => mpcConnection.previousTrack());
+        //ipcMain.on('mpd-status', () => mpcConnection.sendCommand('status'));
     }
 };
