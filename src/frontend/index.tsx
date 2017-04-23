@@ -5,6 +5,9 @@ import 'font-awesome/css/font-awesome.css';
 import './index.scss';
 import Player from './views/player';
 import Selector from './views/selector';
+import { createStore } from 'redux';
+
+//const store = createStore()
 
 document.querySelector('body').innerHTML = '<app></app>';
 
