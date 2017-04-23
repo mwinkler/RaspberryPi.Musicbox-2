@@ -39,16 +39,7 @@ export default {
                     
                     let response = await sendCommand('status');
 
-                    // transform npd state string into object
-                    let stateMpd = {} as any;
-                    response.result
-                        .split('\n')
-                        .forEach(line => {
-                            if (line) {
-                                let parts = line.split(':');
-                                stateMpd[parts[0]] = parts[1].trim();
-                            }
-                        });
+                    let stateMpd = mpd.parseKeyValueMessage(response.result);
 
                     let state: IMpcStatus = {
                         state: MpcState[stateMpd.state],
