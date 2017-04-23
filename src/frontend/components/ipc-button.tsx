@@ -15,6 +15,8 @@ export default class extends React.Component<IMpcButtonProperties, {}> {
     }
 
     click() {
+        console.log(`Send IPC command '${this.props.command}'`);
+
         ipcRenderer.send(this.props.command);
     }
 

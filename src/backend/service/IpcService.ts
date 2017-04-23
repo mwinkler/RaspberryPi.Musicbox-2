@@ -10,16 +10,12 @@ export default {
         const mpcService = MpcFactory.create();
         const mpcConnection = mpcService.connect();
 
-        ipcMain.on(IpcCommand.Quit, () => {
-            console.log('Quit')
-            app.quit();
-        });
-
-        ipcMain.on(IpcCommand.MpdTogglePlay, () => mpcConnection.togglePlay());
-        ipcMain.on(IpcCommand.MpdNextTrack, () => mpcConnection.nextTrack());
-        ipcMain.on(IpcCommand.MpdPreviousTrack, () => mpcConnection.previousTrack());
-        ipcMain.on(IpcCommand.MpdVolumeUp, () => mpcConnection.volumeUp());
-        ipcMain.on(IpcCommand.MpdVolumeDown, () => mpcConnection.volumeDown());
+        ipcMain.on(IpcCommand.Quit, () => { console.log('Recive IPC: Quit'); app.quit(); });
+        ipcMain.on(IpcCommand.MpdTogglePlay, () => { console.log('Recive IPC: MpdTogglePlay'); mpcConnection.togglePlay(); });
+        ipcMain.on(IpcCommand.MpdNextTrack, () => { console.log('Recive IPC: MpdNextTrack'); mpcConnection.nextTrack(); });
+        ipcMain.on(IpcCommand.MpdPreviousTrack, () => { console.log('Recive IPC: MpdPreviousTrack'); mpcConnection.previousTrack(); });
+        ipcMain.on(IpcCommand.MpdVolumeUp, () => { console.log('Recive IPC: MpdVolumeUp'); mpcConnection.volumeUp(); });
+        ipcMain.on(IpcCommand.MpdVolumeDown, () => { console.log('Recive IPC: MpdVolumeDown'); mpcConnection.volumeDown(); });
 
         // setInterval(() => {
         //     mpcConnection.getStatus();

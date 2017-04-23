@@ -30,6 +30,9 @@ export default {
                 });
             });
         }
+
+        var currentSondId;
+        var currentSong = {} as any;
         
         return {
             
@@ -39,19 +42,25 @@ export default {
                     
                     let response = await sendCommand('status');
 
-                    let stateMpd = mpd.parseKeyValueMessage(response.result);
+                    let status = mpd.parseKeyValueMessage(response.result);
 
-                    let state: IMpcStatus = {
-                        state: MpcState[stateMpd.state],
-                        album: '',
-                        title: '',
-                        trackNumber: parseInt(stateMpd.song) + 1,
-                        totalTracks: parseInt(stateMpd.playlistlength),
-                        volume: parseInt(stateMpd.volume),
+                    // refresh current song
+                    if (currentSondId !== status.songid) {
+                        
+                        let currentSongResponse = await sendCommand('currentsong');
+                        currentSong = mpd.parseKeyValueMessage(currentSongResponse.result);
+                        currentSondId = status.songid;
+                    }
+
+                    ret({
+                        state: MpcState[status.state],
+                        album: currentSong.Album || '',
+                        title: currentSong.Title || '',
+                        trackNumber: parseInt(status.song) + 1,
+                        totalTracks: parseInt(status.playlistlength),
+                        volume: parseInt(status.volume),
                         time: new Date(1),
-                    };
-
-                    ret(state);
+                    });
                 });
             },
 
