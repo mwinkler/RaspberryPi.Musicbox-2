@@ -1,5 +1,6 @@
 
 import * as mpd from 'mpd';
+import { MpcState } from '../../../shared/Mpc';
 
 export default {
     
@@ -20,7 +21,7 @@ export default {
 
                 client.sendCommand(mpd.cmd(command, []), (err, result) => {
                     
-                    console.log(`MPD command '${command}' result: '${result}', err: '${err}'`);
+                    console.log(`MPD command '${command}' result: '${JSON.stringify(result)}', err: '${JSON.stringify(err)}'`);
 
                     ret({
                         err: err,
@@ -34,26 +35,40 @@ export default {
             
             getStatus() {
 
-                return new Promise<IMpcState>(async (ret, rej) => {
+                return new Promise<IMpcStatus>(async (ret, rej) => {
                     
-                    let result = await sendCommand('status');
+                    let response = await sendCommand('status');
 
-                    let state = {
-                        playing: false,
+                    // transform npd state string into object
+                    let stateMpd = {} as any;
+                    response.result
+                        .split('\n')
+                        .forEach(line => {
+                            if (line) {
+                                let parts = line.split(':');
+                                stateMpd[parts[0]] = parts[1].trim();
+                            }
+                        });
+
+                    let state: IMpcStatus = {
+                        state: MpcState[stateMpd.state],
                         album: '',
                         title: '',
-                        trackNumber: 1,
-                        totalTracks: 10,
-                        volume: 50,
-                        time: new Date(1)
+                        trackNumber: parseInt(stateMpd.song) + 1,
+                        totalTracks: parseInt(stateMpd.playlistlength),
+                        volume: parseInt(stateMpd.volume),
+                        time: new Date(1),
                     };
 
                     ret(state);
                 });
             },
 
-            togglePlay() {
-                sendCommand('play');
+            async togglePlay() {
+                
+                let status = await this.getStatus();
+
+                sendCommand(status.state !== MpcState.play ? 'play' : 'pause');
             },
 
             nextTrack() {

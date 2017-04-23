@@ -32,7 +32,7 @@ export default class extends React.Component<IPlayerProperties, {}> {
                 <div className="controls">
                     <IpcButton command="mpd-previous" icon="fa-step-backward"></IpcButton>
                     <IpcButton command="mpd-togglePlay" icon="fa-play"></IpcButton>
-                    <IpcButton command="mpd-stop" icon="fa-stop"></IpcButton>
+                    <IpcButton command="quit" icon="fa-stop"></IpcButton>
                     <IpcButton command="mpd-next" icon="fa-step-forward"></IpcButton>
                 </div>
             </div>

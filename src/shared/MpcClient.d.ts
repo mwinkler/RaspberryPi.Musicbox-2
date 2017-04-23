@@ -4,14 +4,14 @@ interface IMpcClient {
 }
 
 interface IMpcConnection {
-    getStatus(): Promise<IMpcState>;
+    getStatus(): Promise<IMpcStatus>;
     togglePlay();
     nextTrack();
     previousTrack();
 }
 
-interface IMpcState {
-    playing: boolean;
+interface IMpcStatus {
+    state;  // todo: find a way to declare a existing enum
     title: string;
     album: string;
     trackNumber: number;

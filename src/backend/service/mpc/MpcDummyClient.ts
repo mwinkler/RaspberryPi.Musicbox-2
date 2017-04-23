@@ -1,11 +1,13 @@
 
+import { MpcState } from '../../../shared/Mpc';
+
 export default {
     
     connect(): IMpcConnection {
 
         console.log('Connect to dummy MPD deamon');
 
-        var playing = false;
+        var state = MpcState.stop;
         var trackNumber = 0;
         var totalTracks = 10;
         var volume = 50;
@@ -14,10 +16,10 @@ export default {
             
             getStatus() {
 
-                return new Promise<IMpcState>((ret, rej) => {
+                return new Promise<IMpcStatus>((ret, rej) => {
                     
-                    let state = {
-                        playing: playing,
+                    let status: IMpcStatus = {
+                        state: state,
                         album: '',
                         title: '',
                         trackNumber: trackNumber,
@@ -28,13 +30,13 @@ export default {
 
                     console.log(`Current state: ${JSON.stringify(state)}`);
 
-                    ret(state);
+                    ret(status);
                 });
             },
 
             togglePlay() {
-                playing = !playing;
-                console.log(`Toggle play to ${playing}`);
+                state = state !== MpcState.play ? MpcState.play : MpcState.pause;
+                console.log(`Toggle state to ${state}`);
             },
 
             nextTrack() {
