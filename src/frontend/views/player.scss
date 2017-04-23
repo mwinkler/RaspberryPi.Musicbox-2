@@ -1,7 +1,7 @@
 
 @import '../main';
 
-$height_cover: 65vh;
+$height_main: 65vh;
 $height_title: 10vh;
 $height_controls: 25vh;
 
@@ -10,18 +10,25 @@ $height_controls: 25vh;
     align-content: space-between;
     flex-direction: column;
 
-    > .cover {
-        height: $height_cover;
+    > .main {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        height: $height_main;
 
-        > .image {
-            height: $height_cover - 3;
-            width: $height_cover - 3;
+        > .info {
+            flex: 1;
+        }
+
+        > .cover {
+            width: 50vw;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;
+        }
+
+        > .volume {
+            width: 15vw;
+            display: flex;
+            flex-direction: column;
         }
     }
 

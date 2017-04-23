@@ -1,7 +1,7 @@
 
 import { app, ipcMain } from 'electron';
 import MpcFactory from './mpc/MpcFactory';
-import MpcCommand from './IpcCommand';
+import IpcCommand from '../../shared/IpcCommand';
 
 export default {
 
@@ -10,14 +10,16 @@ export default {
         const mpcService = MpcFactory.create();
         const mpcConnection = mpcService.connect();
 
-        ipcMain.on('quit', () => {
-            console.log('Exit')
+        ipcMain.on(IpcCommand.Quit, () => {
+            console.log('Quit')
             app.quit();
         });
 
-        ipcMain.on('mpd-togglePlay', () => mpcConnection.togglePlay());
-        ipcMain.on('mpd-next', () => mpcConnection.nextTrack());
-        ipcMain.on('mpd-previous', () => mpcConnection.previousTrack());
+        ipcMain.on(IpcCommand.MpdTogglePlay, () => mpcConnection.togglePlay());
+        ipcMain.on(IpcCommand.MpdNextTrack, () => mpcConnection.nextTrack());
+        ipcMain.on(IpcCommand.MpdPreviousTrack, () => mpcConnection.previousTrack());
+        ipcMain.on(IpcCommand.MpdVolumeUp, () => mpcConnection.volumeUp());
+        ipcMain.on(IpcCommand.MpdVolumeDown, () => mpcConnection.volumeDown());
 
         // setInterval(() => {
         //     mpcConnection.getStatus();

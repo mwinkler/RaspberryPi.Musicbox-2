@@ -1,6 +1,6 @@
 
 import * as mpd from 'mpd';
-import { MpcState } from '../../../shared/Mpc';
+import MpcState from '../../../shared/MpcState';
 
 export default {
     
@@ -13,13 +13,13 @@ export default {
             host: 'localhost'
         });
 
-        const sendCommand = (command): Promise<{err: string, result: string}> => {
+        const sendCommand = (command, args?: string[]): Promise<{err: string, result: string}> => {
 
             return new Promise<{err: string, result: string}>((ret, rej) => {
 
                 console.log(`Send MPD command '${command}'`);
 
-                client.sendCommand(mpd.cmd(command, []), (err, result) => {
+                client.sendCommand(mpd.cmd(command, args || []), (err, result) => {
                     
                     console.log(`MPD command '${command}' result: '${JSON.stringify(result)}', err: '${JSON.stringify(err)}'`);
 
@@ -77,6 +77,14 @@ export default {
 
             previousTrack() {
                 sendCommand('previous');
+            },
+
+            volumeUp() {
+                sendCommand('volume', ['+1']);
+            },
+
+            volumeDown() {
+                sendCommand('volume', ['-1']);
             }
         }
     }

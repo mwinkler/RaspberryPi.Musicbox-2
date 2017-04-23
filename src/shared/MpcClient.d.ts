@@ -8,6 +8,8 @@ interface IMpcConnection {
     togglePlay();
     nextTrack();
     previousTrack();
+    volumeUp();
+    volumeDown();
 }
 
 interface IMpcStatus {

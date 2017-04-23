@@ -1,5 +1,5 @@
 
-import { MpcState } from '../../../shared/Mpc';
+import MpcState from '../../../shared/MpcState';
 
 export default {
     
@@ -47,6 +47,12 @@ export default {
             previousTrack() {
                 trackNumber = Math.max(1, trackNumber - 1);
                 console.log(`Previous track ${trackNumber}`);
+            },
+
+            volumeUp() {
+            },
+
+            volumeDown() {
             }
         }
     }
