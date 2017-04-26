@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { ipcRenderer } from 'electron';
+import ipcClient from '../service/ipc-client';
 import './ipc-button.scss';
 
 interface IMpcButtonProperties {
@@ -15,9 +15,7 @@ export default class extends React.Component<IMpcButtonProperties, {}> {
     }
 
     click() {
-        console.log(`Send IPC command '${this.props.command}'`);
-
-        ipcRenderer.send(this.props.command);
+        ipcClient.sendCommand(this.props.command);
     }
 
     render() {

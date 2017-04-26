@@ -17,8 +17,9 @@ export default {
         ipcMain.on(IpcCommand.MpdVolumeUp, () => { console.log('Recive IPC: MpdVolumeUp'); mpcConnection.volumeUp(); });
         ipcMain.on(IpcCommand.MpdVolumeDown, () => { console.log('Recive IPC: MpdVolumeDown'); mpcConnection.volumeDown(); });
 
-        // setInterval(() => {
-        //     mpcConnection.getStatus();
-        // }, 1000);
+        ipcMain.on(IpcCommand.MpdGetState, async (event, arg) => { 
+            console.log('Recive IPC: MpdGetState'); 
+            event.returnValue = await mpcConnection.getStatus();
+        });
     }
 };

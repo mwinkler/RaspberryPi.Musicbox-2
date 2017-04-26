@@ -7,52 +7,54 @@ export default {
 
         console.log('Connect to dummy MPD deamon');
 
-        var state = MpcState.stop;
-        var trackNumber = 0;
-        var totalTracks = 10;
-        var volume = 50;
+        var status: IMpcStatus = {
+            state: MpcState.stop,
+            album: 'Dummy Album',
+            title: '',
+            currentTrack: 0,
+            totalTracks: 10,
+            volume: 50,
+            time: new Date(1)
+        };
 
         return {
             
             getStatus() {
 
                 return new Promise<IMpcStatus>((ret, rej) => {
-                    
-                    let status: IMpcStatus = {
-                        state: state,
-                        album: '',
-                        title: '',
-                        trackNumber: trackNumber,
-                        totalTracks: totalTracks,
-                        volume: volume,
-                        time: new Date(1)
-                    };
 
-                    console.log(`Current state: ${JSON.stringify(state)}`);
+                    status.title = status.state === MpcState.play
+                        ? `Track ${status.currentTrack}`
+                        : '';
+
+                    console.log(`Current state: ${JSON.stringify(status)}`);
 
                     ret(status);
                 });
             },
 
             togglePlay() {
-                state = state !== MpcState.play ? MpcState.play : MpcState.pause;
-                console.log(`Toggle state to ${state}`);
+                status.currentTrack = Math.max(status.currentTrack, 1);
+                status.state = status.state !== MpcState.play ? MpcState.play : MpcState.pause;
+                console.log(`Toggle state to ${status.state}`);
             },
 
             nextTrack() {
-                trackNumber = Math.min(totalTracks, trackNumber + 1);
-                console.log(`Next track ${trackNumber}`);
+                status.currentTrack = Math.min(status.totalTracks, status.currentTrack + 1);
+                console.log(`Next track ${status.currentTrack}`);
             },
 
             previousTrack() {
-                trackNumber = Math.max(1, trackNumber - 1);
-                console.log(`Previous track ${trackNumber}`);
+                status.currentTrack = Math.max(1, status.currentTrack - 1);
+                console.log(`Previous track ${status.currentTrack}`);
             },
 
             volumeUp() {
+                status.volume = Math.min(100, status.volume + 1);
             },
 
             volumeDown() {
+                status.volume = Math.max(0, status.volume - 1);
             }
         }
     }

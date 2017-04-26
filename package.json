@@ -12,7 +12,7 @@
     "build-backend": "webpack --config webpack.backend.config.js",
     "build-backend-watch": "webpack --config webpack.backend.config.js --watch",
     "start": "electron . --local",
-    "start-debug": "electron . --debug --enable-logging",
+    "start-debug": "electron . --local --debug --enable-logging",
     "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l"
   },
   "dependencies": {
