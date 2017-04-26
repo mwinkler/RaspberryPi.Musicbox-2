@@ -1,5 +1,9 @@
 
+//lib
 import * as React from 'react';
+import { connect } from 'react-redux';
+
+// app
 import './player.scss';
 import IpcButton from '../components/ipc-button';
 import IpcCommand from '../../shared/IpcCommand';
@@ -10,7 +14,13 @@ interface IPlayerProperties {
     cover?: string;
 }
 
-export default class extends React.Component<IPlayerProperties, {}> {
+function mapStateToProps (store) { 
+    return {
+        player: store.player
+    }
+}
+
+class Player extends React.Component<any, {}> {
 
     playerCoverImageStyles: React.CSSProperties;
 
@@ -23,6 +33,7 @@ export default class extends React.Component<IPlayerProperties, {}> {
     }
 
     render() {
+        console.log(`Player props: ${JSON.stringify(this.props)}`);
         return (
             <div className="player">
                 <div className="main">
@@ -46,3 +57,5 @@ export default class extends React.Component<IPlayerProperties, {}> {
         )
     }
 }
+
+export default connect(mapStateToProps)(Player)
