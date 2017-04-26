@@ -7,7 +7,7 @@ const initalState: IMpcStatus = {
     time: new Date(0),
     title: '',
     totalTracks: 0,
-    currentTrack: 0,
+    track: 0,
     volume: 0
 }
 

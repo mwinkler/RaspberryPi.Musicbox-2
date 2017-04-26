@@ -7,25 +7,30 @@ export default {
 
         console.log('Connect to dummy MPD deamon');
 
+        var timeStart: Date;
+
         var status: IMpcStatus = {
             state: MpcState.stop,
             album: 'Dummy Album',
             title: '',
-            currentTrack: 0,
+            track: 0,
             totalTracks: 10,
             volume: 50,
-            time: new Date(1)
+            time: new Date(0)
         };
 
-        return {
+        const connection = {
             
             getStatus() {
 
                 return new Promise<IMpcStatus>((ret, rej) => {
 
-                    status.title = status.state === MpcState.play
-                        ? `Track ${status.currentTrack}`
-                        : '';
+                    status.title = status.state === MpcState.stop
+                        ? ''
+                        : `Track ${status.track}`;
+                    status.time = status.state === MpcState.stop
+                        ? new Date(0)
+                        : new Date(new Date().getTime() - timeStart.getTime());
 
                     console.log(`Current state: ${JSON.stringify(status)}`);
 
@@ -34,29 +39,40 @@ export default {
             },
 
             togglePlay() {
-                status.currentTrack = Math.max(status.currentTrack, 1);
-                status.state = status.state !== MpcState.play ? MpcState.play : MpcState.pause;
+                if (status.state === MpcState.stop)
+                    connection.nextTrack();
+                else
+                    status.state = status.state !== MpcState.play ? MpcState.play : MpcState.pause;
+
                 console.log(`Toggle state to ${status.state}`);
             },
 
             nextTrack() {
-                status.currentTrack = Math.min(status.totalTracks, status.currentTrack + 1);
-                console.log(`Next track ${status.currentTrack}`);
+                timeStart = new Date();
+                status.track = Math.max(Math.min(status.totalTracks, status.track + 1), 1);
+                status.state = MpcState.play;
+                console.log(`Next track ${status.track}`);
             },
 
             previousTrack() {
-                status.currentTrack = Math.max(1, status.currentTrack - 1);
-                console.log(`Previous track ${status.currentTrack}`);
+                timeStart = new Date();
+                status.track = Math.max(1, status.track - 1);
+                status.state = MpcState.play;
+                console.log(`Previous track ${status.track}`);
             },
 
             volumeUp() {
                 status.volume = Math.min(100, status.volume + 1);
+                console.log(`Set volume up to ${status.volume}`);
             },
 
             volumeDown() {
                 status.volume = Math.max(0, status.volume - 1);
+                console.log(`Set volume down to ${status.volume}`);
             }
         }
+
+        return connection;
     }
     
 } as IMpcClient;

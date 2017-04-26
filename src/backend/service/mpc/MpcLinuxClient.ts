@@ -56,7 +56,7 @@ export default {
                         state: MpcState[status.state],
                         album: currentSong.Album || '',
                         title: currentSong.Title || '',
-                        currentTrack: parseInt(status.song) + 1,
+                        track: parseInt(status.song) + 1,
                         totalTracks: parseInt(status.playlistlength),
                         volume: parseInt(status.volume),
                         time: new Date(1),
