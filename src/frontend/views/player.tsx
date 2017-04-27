@@ -9,6 +9,7 @@ import Button from '../components/button';
 import playerAction from '../actions/player';
 import MpcSate from './../../shared/MpcState';
 import { IRootState } from '../store';
+import * as moment from 'moment';
 
 //import * as demoCover from '../images/cover.png';
 
@@ -35,11 +36,15 @@ class Player extends React.Component<IPlayerProps, {}> {
     }
 
     render() {
+        const isPlaying = this.props.player.state === MpcSate.play;
+
         return (
             <div className="player">
                 <div className="main">
-                    <div className="info"></div>
-                    <div className="cover"  style={this.playerCoverImageStyles}></div>
+                    <div className="info">
+                        {moment(this.props.player.time).format('hh:mm:ss')}
+                    </div>
+                    <div className="cover" style={this.playerCoverImageStyles}></div>
                     <div className="volume">
                         <Button command={playerAction.volumeUp} icon="fa-volume-up"></Button>
                         <Button command={playerAction.volumeDown} icon="fa-volume-down"></Button>
@@ -50,7 +55,7 @@ class Player extends React.Component<IPlayerProps, {}> {
                 </div>
                 <div className="controls">
                     <Button command={playerAction.previousTrack} icon="fa-step-backward"></Button>
-                    <Button command={playerAction.togglePlay} icon={this.props.player.state === MpcSate.play ? 'fa-pause' : 'fa-play'}></Button>
+                    <Button command={playerAction.togglePlay} icon={isPlaying ? 'fa-pause' : 'fa-play'}></Button>
                     {/*<Button command={() => {}} icon="fa-stop"></Button>*/}
                     <Button command={playerAction.nextTrack} icon="fa-step-forward"></Button>
                 </div>
@@ -59,4 +64,4 @@ class Player extends React.Component<IPlayerProps, {}> {
     }
 }
 
-export default connect(mapStateToProps)(Player)
+export default connect(mapStateToProps)(Player);

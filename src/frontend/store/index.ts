@@ -3,7 +3,7 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 
 // app
-import playerReducer from './player/reducer';
+import playerReducer from '../reducers/player';
 
 export interface IRootState {
     player: IMpcStatus

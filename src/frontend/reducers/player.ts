@@ -1,5 +1,5 @@
 
-import mpcState from '../../../shared/MpcState';
+import mpcState from '../../shared/MpcState';
 
 const initalState: IMpcStatus = {
     album: '',
@@ -16,7 +16,7 @@ export default function (state = initalState, action) {
     switch(action.type) {
 
         case 'PLAYER/UPDATE_STATE':
-                state = { ...action.payload };
+            state = { ...action.payload };
             break;
     }
 
