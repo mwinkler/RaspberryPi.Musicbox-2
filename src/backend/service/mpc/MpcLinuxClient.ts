@@ -71,20 +71,20 @@ export default {
                 sendCommand(status.state !== MpcState.play ? 'play' : 'pause');
             },
 
-            nextTrack() {
-                sendCommand('next');
+            async nextTrack() {
+                await sendCommand('next');
             },
 
-            previousTrack() {
-                sendCommand('previous');
+            async previousTrack() {
+                await sendCommand('previous');
             },
 
-            volumeUp() {
-                sendCommand('volume', ['+1']);
+            async volumeUp() {
+                await sendCommand('volume', ['+1']);
             },
 
-            volumeDown() {
-                sendCommand('volume', ['-1']);
+            async volumeDown() {
+                await sendCommand('volume', ['-1']);
             }
         }
     }

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import './player.scss';
 import Button from '../components/button';
 import playerAction from '../actions/player';
+import commonAction from '../actions/common';
 import MpcSate from './../../shared/MpcState';
 import { IRootState } from '../store';
 import * as moment from 'moment';
@@ -56,7 +57,7 @@ class Player extends React.Component<IPlayerProps, {}> {
                 <div className="controls">
                     <Button command={playerAction.previousTrack} icon="fa-step-backward"></Button>
                     <Button command={playerAction.togglePlay} icon={isPlaying ? 'fa-pause' : 'fa-play'}></Button>
-                    {/*<Button command={() => {}} icon="fa-stop"></Button>*/}
+                    <Button command={commonAction.quit} icon="fa-stop"></Button>
                     <Button command={playerAction.nextTrack} icon="fa-step-forward"></Button>
                 </div>
             </div>

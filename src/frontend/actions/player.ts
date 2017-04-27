@@ -15,28 +15,28 @@ const playerActions = {
         });
     },
 
-    togglePlay() {
-        ipcClient.sendCommand(IpcCommands.MpdTogglePlay);
+    async togglePlay() {
+        await ipcClient.sendCommand(IpcCommands.MpdTogglePlay);
         playerActions.updateState();
     },
 
-    nextTrack() {
-        ipcClient.sendCommand(IpcCommands.MpdNextTrack);
+    async nextTrack() {
+        await ipcClient.sendCommand(IpcCommands.MpdNextTrack);
         playerActions.updateState();
     },
 
-    previousTrack() {
-        ipcClient.sendCommand(IpcCommands.MpdPreviousTrack);
+    async previousTrack() {
+        await ipcClient.sendCommand(IpcCommands.MpdPreviousTrack);
         playerActions.updateState();
     },
 
-    volumeUp() {
-        ipcClient.sendCommand(IpcCommands.MpdVolumeUp);
+    async volumeUp() {
+        await ipcClient.sendCommand(IpcCommands.MpdVolumeUp);
         playerActions.updateState();
     },
 
-    volumeDown() {
-        ipcClient.sendCommand(IpcCommands.MpdVolumeDown);
+    async volumeDown() {
+        await ipcClient.sendCommand(IpcCommands.MpdVolumeDown);
         playerActions.updateState();
     }
 }
