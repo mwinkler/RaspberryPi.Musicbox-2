@@ -1,7 +1,13 @@
 
+// lib
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 
-import reducers from '../reducers/index';
+// app
+import playerReducer from './player/reducer';
+
+const reducers = combineReducers({
+    player: playerReducer
+});
 
 export const store = createStore(reducers);
 

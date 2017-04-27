@@ -1,5 +1,5 @@
 
-//lib
+// lib
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -11,10 +11,6 @@ import MpcSate from './../../shared/MpcState';
 
 import * as demoCover from '../images/cover.png';
 
-interface IPlayerProperties {
-    cover?: string;
-}
-
 function mapStateToProps (store) { 
     return {
         player: store.player
@@ -25,19 +21,15 @@ class Player extends React.Component<any, {}> {
 
     playerCoverImageStyles: React.CSSProperties;
 
-    constructor(props: IPlayerProperties) {
+    constructor(props) {
         super(props);
 
         this.playerCoverImageStyles = {
             //backgroundImage: `url(${demoCover})`
         }
-
-        console.log(`Player props: ${JSON.stringify(this.props)}`);
     }
 
     render() {
-
-        let playIcon = this.props.player.state === MpcSate.play ? 'fa-pause' : 'fa-play';
 
         return (
             <div className="player">
@@ -54,7 +46,7 @@ class Player extends React.Component<any, {}> {
                 </div>
                 <div className="controls">
                     <Button command={playerAction.previousTrack} icon="fa-step-backward"></Button>
-                    <Button command={playerAction.togglePlay} icon="{playIcon}"></Button>
+                    <Button command={playerAction.togglePlay} icon={this.props.player.state === MpcSate.play ? 'fa-pause' : 'fa-play'}></Button>
                     {/*<Button command={() => {}} icon="fa-stop"></Button>*/}
                     <Button command={playerAction.nextTrack} icon="fa-step-forward"></Button>
                 </div>

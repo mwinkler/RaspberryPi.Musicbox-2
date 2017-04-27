@@ -1,5 +1,5 @@
 
-import mpcState from '../../shared/MpcState';
+import mpcState from '../../../shared/MpcState';
 
 const initalState: IMpcStatus = {
     album: '',

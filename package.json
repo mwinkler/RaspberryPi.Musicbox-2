@@ -6,13 +6,13 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "npm run clean && npm run build-frontend && npm run build-backend",
-    "build-watch": "concurrently \"npm run build-frontend-watch\" \"npm run build-backend-watch\"",
+    "build:watch": "concurrently \"npm run build-frontend:watch\" \"npm run build-backend:watch\"",
     "build-frontend": "webpack --config webpack.frontend.config.js",
-    "build-frontend-watch": "webpack --config webpack.frontend.config.js --watch",
+    "build-frontend:watch": "webpack --config webpack.frontend.config.js --watch",
     "build-backend": "webpack --config webpack.backend.config.js",
-    "build-backend-watch": "webpack --config webpack.backend.config.js --watch",
+    "build-backend:watch": "webpack --config webpack.backend.config.js --watch",
     "start": "electron . --local",
-    "start-debug": "electron . --local --debug --enable-logging",
+    "start:debug": "electron . --local --debug --enable-logging",
     "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "@types/react": "^15.0.18",
     "@types/react-dom": "^0.14.23",
     "@types/react-redux": "^4.4.39",
+    "electron": "^1.4.13",
     "font-awesome": "^4.7.0",
     "moment": "^2.18.1",
     "mpd": "^1.3.0",
@@ -33,7 +34,6 @@
     "concurrently": "^3.4.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
-    "electron": "^1.4.13",
     "electron-packager": "^8.6.0",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.10.1",
