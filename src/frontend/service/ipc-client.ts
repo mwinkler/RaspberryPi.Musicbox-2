@@ -2,7 +2,7 @@
 import { ipcRenderer } from 'electron';
 import IpcCommands from '../../shared/IpcCommand';
 
-export default {
+const ipcClient = {
 
     sendCommand(command: string) {
         
@@ -27,4 +27,6 @@ export default {
             }
         });
     }
-};;
+}
+
+export default ipcClient;

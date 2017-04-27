@@ -1,8 +1,9 @@
 
 import ipcClient from '../service/ipc-client';
 import { store } from '../store/index';
+import IpcCommands from '../../shared/IpcCommand';
 
-export default {
+const playerActions = {
 
     async updateState() {
 
@@ -12,5 +13,32 @@ export default {
             type: 'PLAYER/UPDATE_STATE',
             payload: state
         });
+    },
+
+    togglePlay() {
+        ipcClient.sendCommand(IpcCommands.MpdTogglePlay);
+        playerActions.updateState();
+    },
+
+    nextTrack() {
+        ipcClient.sendCommand(IpcCommands.MpdNextTrack);
+        playerActions.updateState();
+    },
+
+    previousTrack() {
+        ipcClient.sendCommand(IpcCommands.MpdPreviousTrack);
+        playerActions.updateState();
+    },
+
+    volumeUp() {
+        ipcClient.sendCommand(IpcCommands.MpdVolumeUp);
+        playerActions.updateState();
+    },
+
+    volumeDown() {
+        ipcClient.sendCommand(IpcCommands.MpdVolumeDown);
+        playerActions.updateState();
     }
 }
+
+export default playerActions;

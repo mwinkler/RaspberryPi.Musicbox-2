@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 
 // app
 import './player.scss';
-import IpcButton from '../components/ipc-button';
-import IpcCommand from '../../shared/IpcCommand';
+import Button from '../components/button';
+import playerAction from '../actions/player';
+import MpcSate from './../../shared/MpcState';
 
 import * as demoCover from '../images/cover.png';
 
@@ -28,30 +29,34 @@ class Player extends React.Component<any, {}> {
         super(props);
 
         this.playerCoverImageStyles = {
-            backgroundImage: `url(${demoCover})`
+            //backgroundImage: `url(${demoCover})`
         }
+
+        console.log(`Player props: ${JSON.stringify(this.props)}`);
     }
 
     render() {
-        console.log(`Player props: ${JSON.stringify(this.props)}`);
+
+        let playIcon = this.props.player.state === MpcSate.play ? 'fa-pause' : 'fa-play';
+
         return (
             <div className="player">
                 <div className="main">
                     <div className="info"></div>
                     <div className="cover"  style={this.playerCoverImageStyles}></div>
                     <div className="volume">
-                        <IpcButton command={IpcCommand.MpdVolumeUp} icon="fa-volume-up"></IpcButton>
-                        <IpcButton command={IpcCommand.MpdVolumeDown} icon="fa-volume-down"></IpcButton>
+                        <Button command={playerAction.volumeUp} icon="fa-volume-up"></Button>
+                        <Button command={playerAction.volumeDown} icon="fa-volume-down"></Button>
                     </div>
                 </div>
                 <div className="title">
-                    Current Title
+                    {this.props.player.title}
                 </div>
                 <div className="controls">
-                    <IpcButton command={IpcCommand.MpdPreviousTrack} icon="fa-step-backward"></IpcButton>
-                    <IpcButton command={IpcCommand.MpdTogglePlay} icon="fa-play"></IpcButton>
-                    <IpcButton command={IpcCommand.Quit} icon="fa-stop"></IpcButton>
-                    <IpcButton command={IpcCommand.MpdNextTrack} icon="fa-step-forward"></IpcButton>
+                    <Button command={playerAction.previousTrack} icon="fa-step-backward"></Button>
+                    <Button command={playerAction.togglePlay} icon="{playIcon}"></Button>
+                    {/*<Button command={() => {}} icon="fa-stop"></Button>*/}
+                    <Button command={playerAction.nextTrack} icon="fa-step-forward"></Button>
                 </div>
             </div>
         )
