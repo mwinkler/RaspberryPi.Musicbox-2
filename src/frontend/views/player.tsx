@@ -8,16 +8,21 @@ import './player.scss';
 import Button from '../components/button';
 import playerAction from '../actions/player';
 import MpcSate from './../../shared/MpcState';
+import { IRootState } from '../store';
 
-import * as demoCover from '../images/cover.png';
+//import * as demoCover from '../images/cover.png';
 
-function mapStateToProps (store) { 
+export interface IPlayerProps {
+    player: IMpcStatus
+}
+
+function mapStateToProps (store: IRootState): IPlayerProps { 
     return {
         player: store.player
     }
 }
 
-class Player extends React.Component<any, {}> {
+class Player extends React.Component<IPlayerProps, {}> {
 
     playerCoverImageStyles: React.CSSProperties;
 
@@ -30,7 +35,6 @@ class Player extends React.Component<any, {}> {
     }
 
     render() {
-
         return (
             <div className="player">
                 <div className="main">

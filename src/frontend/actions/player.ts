@@ -1,6 +1,6 @@
 
-import ipcClient from '../service/ipc-client';
-import { store } from '../store/index';
+import ipcClient from '../service/ipcClient';
+import store from '../store';
 import IpcCommands from '../../shared/IpcCommand';
 
 const playerActions = {

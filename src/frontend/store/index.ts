@@ -5,12 +5,18 @@ import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 // app
 import playerReducer from './player/reducer';
 
-const reducers = combineReducers({
+export interface IRootState {
+    player: IMpcStatus
+}
+
+const reducers = combineReducers<IRootState>({
     player: playerReducer
 });
 
-export const store = createStore(reducers);
+const store = createStore(reducers);
 
 store.subscribe(() => {
-    console.log('store change', store.getState());
+    console.log('Store change', store.getState());
 });
+
+export default store;
