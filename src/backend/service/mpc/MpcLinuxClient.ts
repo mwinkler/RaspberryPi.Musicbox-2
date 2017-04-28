@@ -36,39 +36,34 @@ export default {
         
         return {
             
-            getStatus() {
+            async getStatus() {
 
-                return new Promise<IMpcStatus>(async (ret, rej) => {
+                let response = await sendCommand('status');
+
+                let status = mpd.parseKeyValueMessage(response.result);
+
+                // refresh current song
+                if (currentSondId !== status.songid) {
                     
-                    let response = await sendCommand('status');
+                    let currentSongResponse = await sendCommand('currentsong');
+                    currentSong = mpd.parseKeyValueMessage(currentSongResponse.result);
+                    currentSondId = status.songid;
+                }
 
-                    let status = mpd.parseKeyValueMessage(response.result);
-
-                    // refresh current song
-                    if (currentSondId !== status.songid) {
-                        
-                        let currentSongResponse = await sendCommand('currentsong');
-                        currentSong = mpd.parseKeyValueMessage(currentSongResponse.result);
-                        currentSondId = status.songid;
-                    }
-
-                    ret({
-                        state: MpcState[status.state],
-                        album: currentSong.Album || '',
-                        title: currentSong.Title || '',
-                        track: parseInt(status.song) + 1,
-                        totalTracks: parseInt(status.playlistlength),
-                        volume: parseInt(status.volume),
-                        time: new Date(1),
-                    });
-                });
+                return {
+                    state: MpcState[status.state],
+                    album: currentSong.Album || '',
+                    title: currentSong.Title || '',
+                    track: parseInt(status.song) + 1,
+                    totalTracks: parseInt(status.playlistlength),
+                    volume: parseInt(status.volume),
+                    time: new Date(0),
+                };
             },
 
             async togglePlay() {
-                
                 let status = await this.getStatus();
-
-                sendCommand(status.state !== MpcState.play ? 'play' : 'pause');
+                await sendCommand(status.state !== MpcState.play ? 'play' : 'pause');
             },
 
             async nextTrack() {
