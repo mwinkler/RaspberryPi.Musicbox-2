@@ -7,7 +7,9 @@ function registerIpcCommand (command, action: Function) {
 
     ipcMain.on(command, async (event, arg) => {
         console.log(`Revice IPC command '${command}'`);
-        event.returnValue = await action.apply(null) || 'OK';
+        var response =  await action.apply(this) || 'OK';
+        console.log(`IPC command '${command}' response: ${JSON.stringify(response)}`);
+        event.returnValue = response;
     });
 }
 
@@ -18,18 +20,12 @@ export default {
         const mpcService = MpcFactory.create();
         const mpcConnection = mpcService.connect();
         
+        registerIpcCommand(IpcCommand.Quit, () => app.quit());
+        registerIpcCommand(IpcCommand.MpdTogglePlay, mpcConnection.togglePlay);
         registerIpcCommand(IpcCommand.MpdNextTrack, mpcConnection.nextTrack);
-
-        ipcMain.on(IpcCommand.Quit, () => { console.log('Recive IPC: Quit'); app.quit(); });
-        //ipcMain.on(IpcCommand.MpdTogglePlay, () => { console.log('Recive IPC: MpdTogglePlay'); mpcConnection.togglePlay(); });
-        ipcMain.on(IpcCommand.MpdNextTrack, () => { console.log('Recive IPC: MpdNextTrack'); mpcConnection.nextTrack(); });
-        ipcMain.on(IpcCommand.MpdPreviousTrack, () => { console.log('Recive IPC: MpdPreviousTrack'); mpcConnection.previousTrack(); });
-        ipcMain.on(IpcCommand.MpdVolumeUp, () => { console.log('Recive IPC: MpdVolumeUp'); mpcConnection.volumeUp(); });
-        ipcMain.on(IpcCommand.MpdVolumeDown, () => { console.log('Recive IPC: MpdVolumeDown'); mpcConnection.volumeDown(); });
-
-        ipcMain.on(IpcCommand.MpdGetState, async (event, arg) => { 
-            console.log('Recive IPC: MpdGetState'); 
-            event.returnValue = await mpcConnection.getStatus();
-        });
+        registerIpcCommand(IpcCommand.MpdPreviousTrack, mpcConnection.previousTrack);
+        registerIpcCommand(IpcCommand.MpdVolumeUp, mpcConnection.volumeUp);
+        registerIpcCommand(IpcCommand.MpdVolumeDown, mpcConnection.volumeDown);
+        registerIpcCommand(IpcCommand.MpdGetState, mpcConnection.getStatus);
     }
 };

@@ -22,20 +22,14 @@ export default {
         const connection = {
             
             getStatus() {
+                status.title = status.state === MpcState.stop
+                    ? ''
+                    : `Track ${status.track}`;
+                status.time = status.state === MpcState.stop
+                    ? new Date(0)
+                    : new Date(new Date().getTime() - timeStart.getTime());
 
-                return new Promise<IMpcStatus>((ret, rej) => {
-
-                    status.title = status.state === MpcState.stop
-                        ? ''
-                        : `Track ${status.track}`;
-                    status.time = status.state === MpcState.stop
-                        ? new Date(0)
-                        : new Date(new Date().getTime() - timeStart.getTime());
-
-                    console.log(`Current state: ${JSON.stringify(status)}`);
-
-                    ret(status);
-                });
+                return status;
             },
 
             togglePlay() {
