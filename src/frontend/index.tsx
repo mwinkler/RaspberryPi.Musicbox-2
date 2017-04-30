@@ -9,6 +9,7 @@ import 'font-awesome/css/font-awesome.css';
 import './index.scss';
 import Player from './views/player';
 import Selector from './views/selector';
+import Switcher from './views/switcher';
 import playerAction from './actions/player';
 import store from './store';
 
@@ -16,7 +17,8 @@ document.querySelector('body').innerHTML = '<app></app>';
 
 ReactDom.render(
     <Provider store={store}>
-        <Player></Player>
+        {/*<Player></Player>*/}
+        <Switcher></Switcher>
     </Provider>,
     document.querySelector('app'));
     

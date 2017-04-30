@@ -4,13 +4,16 @@ import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 
 // app
 import playerReducer from '../reducers/player';
+import viewReducer from '../reducers/view';
 
 export interface IRootState {
-    player: IMpcStatus
+    player: IMpcStatus,
+    view: string
 }
 
 const reducers = combineReducers<IRootState>({
-    player: playerReducer
+    player: playerReducer,
+    view: viewReducer
 });
 
 const store = createStore(reducers);

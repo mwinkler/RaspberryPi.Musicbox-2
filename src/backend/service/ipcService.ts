@@ -1,15 +1,23 @@
 
 import { app, ipcMain } from 'electron';
-import MpcFactory from './mpc/MpcFactory';
+import mpcFactory from './mpc/MpcFactory';
 import IpcCommand from '../../shared/IpcCommand';
 
 function registerIpcCommand (command, action: Function) {
 
     ipcMain.on(command, async (event, arg) => {
-        console.log(`Revice IPC command '${command}'`);
-        var response =  await action.apply(this) || 'OK';
-        console.log(`IPC command '${command}' response: ${JSON.stringify(response)}`);
-        event.returnValue = response;
+
+        try {
+            console.log(`Revice IPC command '${command}'`);
+            
+            var response =  await action.apply(this) || 'OK';
+            
+            console.log(`IPC command '${command}' response: ${JSON.stringify(response)}`);
+            
+            event.returnValue = response;
+        } catch (error) {
+            console.error(error);
+        }
     });
 }
 
@@ -17,7 +25,7 @@ export default {
 
     init() {
 
-        const mpcService = MpcFactory.create();
+        const mpcService = mpcFactory.create();
         const mpcConnection = mpcService.connect();
         
         registerIpcCommand(IpcCommand.Quit, () => app.quit());
