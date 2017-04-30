@@ -34,10 +34,9 @@ export default {
         var currentSondId;
         var currentSong = {} as any;
         
-        return {
+        const mpcLinuxClient: IMpcConnection = {
             
             async getStatus() {
-
                 let response = await sendCommand('status');
 
                 let status = mpd.parseKeyValueMessage(response.result);
@@ -62,7 +61,7 @@ export default {
             },
 
             async togglePlay() {
-                let status = await this.getStatus();
+                let status = await mpcLinuxClient.getStatus();
                 await sendCommand(status.state !== MpcState.play ? 'play' : 'pause');
             },
 
@@ -82,6 +81,8 @@ export default {
                 await sendCommand('volume', ['-1']);
             }
         }
+
+        return mpcLinuxClient;
     }
 
 } as IMpcClient;
