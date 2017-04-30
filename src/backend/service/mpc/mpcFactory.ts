@@ -1,6 +1,6 @@
 
-import MpcDummyClient from './MpcDummyClient';
-import MpcLinuxClient from './MpcLinuxClient';
+import mpcDummyClient from './mpcDummyClient';
+import mpcLinuxClient from './mpcLinuxClient';
 
 export default {
 
@@ -9,7 +9,7 @@ export default {
         const local = process.argv.find(s => s === '--local') !== undefined;
 
         return local
-            ? MpcDummyClient
-            : MpcLinuxClient;
+            ? mpcDummyClient
+            : mpcLinuxClient;
     }
 }
