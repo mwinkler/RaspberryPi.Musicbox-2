@@ -1,0 +1,4 @@
+
+interface IMpcClient {
+    connect(): IMpcConnection;
+}

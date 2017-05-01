@@ -15,7 +15,8 @@ function registerIpcCommand (command, action: Function) {
             console.log(`IPC command '${command}' response: ${JSON.stringify(response)}`);
             
             event.returnValue = response;
-        } catch (error) {
+        } 
+        catch (error) {
             console.error(error);
         }
     });
