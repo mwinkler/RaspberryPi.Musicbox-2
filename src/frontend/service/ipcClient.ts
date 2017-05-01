@@ -26,6 +26,11 @@ const ipcClient = {
     getPlayerState(): Promise<IMpcStatus> {
 
         return ipcClient.sendCommand(IpcCommands.MpdGetState);
+    },
+
+    registerEventListener(command: string, callback: Electron.IpcRendererEventListener) {
+
+        ipcRenderer.on(command, callback);
     }
 }
 
