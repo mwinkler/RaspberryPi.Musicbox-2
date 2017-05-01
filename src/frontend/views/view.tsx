@@ -6,19 +6,19 @@ import { IRootState } from '../store';
 import Player from './player';
 import Selector from './selector';
 
-interface ISwitcherProperties {
+interface IViewProperties {
     view?: string;
 }
 
-function mapStateToProps (store: IRootState): ISwitcherProperties { 
+function mapStateToProps (store: IRootState): IViewProperties { 
     return {
         view: store.view
     }
 }
 
-class Switcher extends React.Component<ISwitcherProperties, {}> {
+class Switcher extends React.Component<IViewProperties, {}> {
     
-    constructor(props: ISwitcherProperties) {
+    constructor(props: IViewProperties) {
         super(props);
     }
     
@@ -27,8 +27,8 @@ class Switcher extends React.Component<ISwitcherProperties, {}> {
         let view;
 
         switch (this.props.view) {
-            case 'player': view = Player; break;
-            case 'selector': view = Selector; break;
+            case 'player': view = <Player></Player>; break;
+            case 'selector': view = <Selector></Selector>; break;
         }
 
         return (

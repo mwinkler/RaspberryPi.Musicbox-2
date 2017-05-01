@@ -36,6 +36,10 @@ class Player extends React.Component<IPlayerProps, {}> {
         }
     }
 
+    openCover() {
+        commonAction.openSelector();
+    }
+
     render() {
         const isPlaying = this.props.player.state === MpcSate.play;
 
@@ -45,7 +49,7 @@ class Player extends React.Component<IPlayerProps, {}> {
                     <div className="info">
                         {moment(this.props.player.time).format('hh:mm:ss')}
                     </div>
-                    <div className="cover" style={this.playerCoverImageStyles}></div>
+                    <div className="cover" style={this.playerCoverImageStyles} onClick={() => this.openCover()}></div>
                     <div className="volume">
                         <Button command={playerAction.volumeUp} icon="fa-volume-up"></Button>
                         <Button command={playerAction.volumeDown} icon="fa-volume-down"></Button>
