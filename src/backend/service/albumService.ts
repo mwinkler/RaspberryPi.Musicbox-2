@@ -1,6 +1,5 @@
 
 import * as fs from 'fs';
-<<<<<<< HEAD
 import * as path from 'path';
 import config from '../../shared/config';
 
@@ -39,27 +38,6 @@ export default {
             catch (error) {
                 rej(error);
             }
-=======
-
-export default {
-
-    getAlbums(path: string): Promise<IAlbum[]> {
-        
-        return new Promise<IAlbum[]>((ret, rej) => {
-
-            fs.readdir(path, (err, files) => {
-
-                if (err) {
-                    rej(err)
-                    return;
-                }
-
-                console.log(`Content of '${path}': ${JSON.stringify(files)}`);
-
-                ret([]);
-            });
->>>>>>> 863cb964636c3ae7d73fe325ed756e4f68a5ca08
-
         });
     }
 }
