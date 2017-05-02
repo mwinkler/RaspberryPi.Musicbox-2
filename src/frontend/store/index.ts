@@ -3,7 +3,7 @@
 import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
 
 // app
-import playerReducer from '../reducers/player';
+import * as PlayerReducer from '../reducers/player';
 import * as CommonReducer from '../reducers/common';
 
 export interface IRootState {
@@ -12,7 +12,7 @@ export interface IRootState {
 }
 
 const reducers = combineReducers<IRootState>({
-    player: playerReducer,
+    player: PlayerReducer.Reducer,
     common: CommonReducer.Reducer
 });
 

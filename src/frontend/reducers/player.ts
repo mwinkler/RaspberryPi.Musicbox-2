@@ -11,11 +11,19 @@ const initalState: IMpcStatus = {
     volume: 0
 }
 
-export default function (state = initalState, action) {
+const types = {
+    SetState: 'PLAYER/SET_STATE'
+}
+
+export const Creator = {
+    SetState: (state: IMpcStatus) => ({ type: types.SetState, payload: state })
+}
+
+export function Reducer (state = initalState, action) {
 
     switch(action.type) {
 
-        case 'PLAYER/UPDATE_STATE':
+        case types.SetState:
             state = { ...action.payload };
             break;
     }

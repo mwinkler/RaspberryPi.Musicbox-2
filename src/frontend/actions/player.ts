@@ -2,17 +2,13 @@
 import ipcClient from '../service/ipcClient';
 import store from '../store';
 import IpcCommands from '../../shared/IpcCommand';
+import * as PlayerReducer from '../reducers/player';
 
 const playerActions = {
 
     async updateState() {
-
         var state = await ipcClient.getPlayerState();
-
-        store.dispatch({
-            type: 'PLAYER/UPDATE_STATE',
-            payload: state
-        });
+        store.dispatch(PlayerReducer.Creator.SetState(state));
     },
 
     async togglePlay() {

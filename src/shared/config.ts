@@ -15,5 +15,5 @@ const production: IConfig = {
 }
 
 export default isLocal 
-? local 
-: production;
+    ? local 
+    : production;
