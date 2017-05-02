@@ -8,25 +8,27 @@ export default {
 
         console.log('Connect to MPD deamon');
 
+        // init mpd connection
         const client = mpd.connect({
             port: 6600,
             host: 'localhost'
         });
 
-        const sendCommand = (command, args?: string[]): Promise<{err: string, result: string}> => {
+        // promisify send command
+        const sendCommand = (command, args?: string[]): Promise<string> => {
 
-            return new Promise<{err: string, result: string}>((ret, rej) => {
+            return new Promise<string>((ret, rej) => {
 
                 console.log(`Send MPD command '${command}'`);
 
                 client.sendCommand(mpd.cmd(command, args || []), (err, result) => {
                     
                     console.log(`MPD command '${command}' result: '${JSON.stringify(result)}', err: '${JSON.stringify(err)}'`);
-
-                    ret({
-                        err: err,
-                        result: result
-                    });
+                    
+                    if (err)
+                        rej(err);
+                    else
+                        ret(result);
                 });
             });
         }
@@ -39,13 +41,13 @@ export default {
             async getStatus() {
                 let response = await sendCommand('status');
 
-                let status = mpd.parseKeyValueMessage(response.result);
+                let status = mpd.parseKeyValueMessage(response);
 
                 // refresh current song
                 if (currentSondId !== status.songid) {
                     
                     let currentSongResponse = await sendCommand('currentsong');
-                    currentSong = mpd.parseKeyValueMessage(currentSongResponse.result);
+                    currentSong = mpd.parseKeyValueMessage(currentSongResponse);
                     currentSondId = status.songid;
                 }
 
@@ -61,8 +63,8 @@ export default {
             },
 
             async togglePlay() {
-                let status = await mpcLinuxClient.getStatus();
-                await sendCommand(status.state !== MpcState.play ? 'play' : 'pause');
+                let response = await mpcLinuxClient.getStatus();
+                await sendCommand(response.state !== MpcState.play ? 'play' : 'pause');
             },
 
             async nextTrack() {

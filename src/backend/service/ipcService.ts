@@ -1,7 +1,8 @@
 
 import { app, ipcMain } from 'electron';
-import mpcFactory from './mpc/MpcFactory';
+import config from '../../shared/config';
 import IpcCommand from '../../shared/IpcCommand';
+import albumService from './albumService';
 
 function registerIpcCommand (command, action: Function) {
 
@@ -15,7 +16,8 @@ function registerIpcCommand (command, action: Function) {
             console.log(`IPC command '${command}' response: ${JSON.stringify(response)}`);
             
             event.returnValue = response;
-        } catch (error) {
+        } 
+        catch (error) {
             console.error(error);
         }
     });
@@ -25,8 +27,7 @@ export default {
 
     init() {
 
-        const mpcService = mpcFactory.create();
-        const mpcConnection = mpcService.connect();
+        const mpcConnection = config.mpcClient.connect();
         
         registerIpcCommand(IpcCommand.Quit, () => app.quit());
         registerIpcCommand(IpcCommand.MpdTogglePlay, mpcConnection.togglePlay);
@@ -35,5 +36,7 @@ export default {
         registerIpcCommand(IpcCommand.MpdVolumeUp, mpcConnection.volumeUp);
         registerIpcCommand(IpcCommand.MpdVolumeDown, mpcConnection.volumeDown);
         registerIpcCommand(IpcCommand.MpdGetState, mpcConnection.getStatus);
+
+        albumService.getAlbums();
     }
 };
