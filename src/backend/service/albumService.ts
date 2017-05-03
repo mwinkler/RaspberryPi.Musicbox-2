@@ -1,19 +1,24 @@
 
 import * as fs from 'fs';
-import * as path from 'path';
+//import * as path from 'path';
 import config from '../../shared/config';
+import { List } from 'linqts';
 
 export default {
 
-    getAlbums(path?: string): Promise<IAlbum[]> {
+    getAlbums(req: { path?: string, page: number, pageSize: number }): Promise<IAlbum[]> {
         
         return new Promise<IAlbum[]>((ret, rej) => {
             
             try {
-                let fullPath = config.library + (path || '');
                 
-                console.log(`Get content of ${fullPath}`);
+                req = { path: '', ...req }
 
+                let fullPath = config.library + req.path;
+                
+                console.log(`Get content of '${fullPath}'`);
+
+                // read directory
                 fs.readdir(fullPath, (err, files) => {
 
                     if (err) {
@@ -21,18 +26,19 @@ export default {
                         return;
                     }
 
-                    console.log(`Content of '${path}': ${JSON.stringify(files)}`);
+                    console.log(`Content of '${req.path}': ${JSON.stringify(files)}`);
                     
                     // create albums
-                    let albums = files.map(folder => {
-                        let album: IAlbum = {
+                    let albums = new List(files)
+                        .Skip(req.pageSize * (req.page - 1))
+                        .Take(req.pageSize)
+                        .Select(folder => ({
                             title: folder,
-                            cover: ''
-                        }
-                        return album;
-                    });
+                            cover: '',
+                            path: req.path + '/' + folder
+                        } as IAlbum));
 
-                    ret(albums);
+                    ret(albums.ToArray());
                 });
             } 
             catch (error) {
