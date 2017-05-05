@@ -1,6 +1,11 @@
 
+export enum View {
+    Player,
+    Selector
+}
+
 const initalState = {
-    view: 'player'
+    view: View.Player
 }
 
 const types = {
@@ -11,7 +16,7 @@ const types = {
 export type State = typeof initalState;
 
 export const Creator = {
-    SetView: (view: string) => ({ type: types.SetView, payload: view }),
+    SetView: (view: View) => ({ type: types.SetView, payload: view }),
     SetCurrentAlbum: (album: IAlbum) => ({ type: types.SetCurrentAlbum, payload: album })
 };
 

@@ -8,11 +8,10 @@ import './player.scss';
 import Button from '../components/button';
 import playerAction from '../actions/player';
 import commonAction from '../actions/common';
+import selectorAction from '../actions/selector';
 import MpcSate from './../../shared/MpcState';
 import { IRootState } from '../store';
 import * as moment from 'moment';
-
-//import * as demoCover from '../images/cover.png';
 
 export interface IPlayerProps {
     player: IMpcStatus
@@ -37,7 +36,7 @@ class Player extends React.Component<IPlayerProps, {}> {
     }
 
     openCover() {
-        commonAction.openSelector();
+        selectorAction.open();
     }
 
     render() {

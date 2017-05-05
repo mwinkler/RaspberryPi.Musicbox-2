@@ -1,17 +1,18 @@
 
 import { ipcRenderer } from 'electron';
-import IpcCommands from '../../shared/IpcCommand';
+import IpcCommand from '../../shared/IpcCommand';
 
 const ipcClient = {
 
-    sendCommand<T>(command: string): Promise<T> {
+    sendCommand<T>(command: string, ...args): Promise<T> {
         
         return new Promise((ret, rej) => {
 
-            console.log(`Send IPC command '${command}'`);
+            console.log(`Send IPC command '${command}' arguments: ${JSON.stringify(args)}`);
 
             try {
-                let response = ipcRenderer.sendSync(command);
+
+                let response = ipcRenderer.sendSync(command, args);
                 
                 console.log(`Recive IPC event '${command}': ${JSON.stringify(response)}`);
 
@@ -25,12 +26,17 @@ const ipcClient = {
 
     getPlayerState(): Promise<IMpcStatus> {
 
-        return ipcClient.sendCommand(IpcCommands.MpdGetState);
+        return ipcClient.sendCommand(IpcCommand.MpdGetState);
     },
 
     registerEventListener(command: string, callback: Electron.IpcRendererEventListener) {
 
         ipcRenderer.on(command, callback);
+    },
+
+    getAlbumPage(options: IAlbumPageOptions): Promise<IAlbumPage> {
+
+        return ipcClient.sendCommand(IpcCommand.GetAlbumPage, options);
     }
 }
 

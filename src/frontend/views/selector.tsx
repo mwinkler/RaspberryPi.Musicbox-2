@@ -1,54 +1,58 @@
 
+// lib
 import * as React from 'react';
+import { connect } from 'react-redux';
+
+// app
 import './selector.scss';
+import { IRootState } from '../store';
+import commonActions from '../actions/common';
+import playerActions from '../actions/player';
+
 import * as demoCover from '../images/cover.png';
 
-interface ISelectorProperties {
-    items?: ISelectorItem[];
+interface ISelectorProps {
+    page?: IAlbumPage;
 }
 
-interface ISelectorItem {
-    title?: string;
-    coverUrl?: string;
+function mapStateToProps (store: IRootState): ISelectorProps { 
+    return {
+        page: store.selector
+    }
 }
 
-export default class extends React.Component<ISelectorProperties, {}> {
+class Selector extends React.Component<ISelectorProps, {}> {
     
-    sampleItems: ISelectorItem[];
-
-    constructor(props: ISelectorProperties) {
+    constructor(props: ISelectorProps) {
         super(props);
-
-        this.sampleItems = [
-            { title: '1' },
-            { title: '1' },
-            { title: '1' },
-            { title: '1' },
-            { title: '1' },
-            { title: '1' },
-            { title: '1' },
-            { title: '1' }
-        ];
     }
 
-    select() {
+    select(item: IAlbum) {
+        playerActions.open();
+    }
 
+    previousPage() {
+    }
+
+    nextPage() {
     }
     
     render() {
         return (
             <div className="selector">
-                <div className="nav">
+                <div className="nav" onClick={this.previousPage}>
                     <i className="fa fa-chevron-circle-left"></i>
                 </div>
                 <div className="grid">
-                    {(this.props.items || this.sampleItems).map(item => 
-                        <div className="item" style={{ backgroundImage: `url(${demoCover})` }}></div>)}
+                    {this.props.page.albums.map(item => 
+                        <div className="item" style={{ backgroundImage: `url(${demoCover})` }} onClick={() => this.select(item)}></div>)}
                 </div>
-                <div className="nav">
+                <div className="nav" onClick={this.nextPage}>
                     <i className="fa fa-chevron-circle-right"></i>
                 </div>
             </div>
         )
     }
 }
+
+export default connect(mapStateToProps)(Selector);

@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { IRootState } from '../store';
 import Player from './player';
 import Selector from './selector';
+import { View } from '../reducers/common';
 
 interface IViewProperties {
-    view?: string;
+    view?: View;
 }
 
 function mapStateToProps (store: IRootState): IViewProperties { 
@@ -23,12 +24,14 @@ class Switcher extends React.Component<IViewProperties, {}> {
     }
     
     render() {
+
         console.log('View: ' + this.props.view);
+
         let view;
 
         switch (this.props.view) {
-            case 'player': view = <Player></Player>; break;
-            case 'selector': view = <Selector></Selector>; break;
+            case View.Player: view = <Player></Player>; break;
+            case View.Selector: view = <Selector></Selector>; break;
         }
 
         return (

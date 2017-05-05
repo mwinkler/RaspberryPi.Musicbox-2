@@ -6,15 +6,15 @@ import { List } from 'linqts';
 
 export default {
 
-    getAlbums(req: { path?: string, page: number, pageSize: number }): Promise<IAlbum[]> {
+    getAlbums(options: IAlbumPageOptions): Promise<IAlbumPage> {
         
-        return new Promise<IAlbum[]>((ret, rej) => {
+        return new Promise<IAlbumPage>((ret, rej) => {
             
             try {
                 
-                req = { path: '', ...req }
+                options = { path: '', ...options }
 
-                let fullPath = config.library + req.path;
+                let fullPath = config.library + options.path;
                 
                 console.log(`Get content of '${fullPath}'`);
 
@@ -26,19 +26,29 @@ export default {
                         return;
                     }
 
-                    console.log(`Content of '${req.path}': ${JSON.stringify(files)}`);
+                    //console.log(`Content of '${req.path}': ${JSON.stringify(files)}`);
                     
                     // create albums
                     let albums = new List(files)
-                        .Skip(req.pageSize * (req.page - 1))
-                        .Take(req.pageSize)
+                        .Skip(options.pageSize * (options.page - 1))
+                        .Take(options.pageSize)
                         .Select(folder => ({
                             title: folder,
                             cover: '',
-                            path: req.path + '/' + folder
+                            path: options.path + '/' + folder
                         } as IAlbum));
 
-                    ret(albums.ToArray());
+                    let totalPages =  Math.floor(files.length / options.pageSize) + (files.length % options.pageSize > 0 ? 1 : 0);
+
+                    ret({
+                        albums: albums.ToArray(),
+                        currentPage: options.page,
+                        totalPages: totalPages,
+                        isFirstPage: options.page === 1,
+                        isLastPage: options.page === totalPages,
+                        totalAlbums: files.length,
+                        hasSubAlbums: false
+                    } as IAlbumPage);
                 });
             } 
             catch (error) {

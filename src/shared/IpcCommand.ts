@@ -6,5 +6,6 @@ export default {
     MpdGetState: "MpdGetState",
     MpdVolumeUp: "MpdVolumeUp",
     MpdVolumeDown: "MpdVolumeDown",
-    Quit: "Quit"
+    Quit: "Quit",
+    GetAlbumPage: "GetAlbumPage"
 };

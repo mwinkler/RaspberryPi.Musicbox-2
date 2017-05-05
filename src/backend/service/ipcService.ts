@@ -6,12 +6,12 @@ import albumService from './albumService';
 
 function registerIpcCommand (command, action: Function) {
 
-    ipcMain.on(command, async (event, arg) => {
+    ipcMain.on(command, async (event, ...args) => {
 
         try {
-            console.log(`Revice IPC command '${command}'`);
+            console.log(`Revice IPC command '${command}' arguments: ${JSON.stringify(args)}`);
             
-            var response =  await action.apply(this) || 'OK';
+            var response =  await action.apply(this, args) || 'OK';
             
             console.log(`IPC command '${command}' response: ${JSON.stringify(response)}`);
             
@@ -36,7 +36,11 @@ export default {
         registerIpcCommand(IpcCommand.MpdVolumeUp, mpcConnection.volumeUp);
         registerIpcCommand(IpcCommand.MpdVolumeDown, mpcConnection.volumeDown);
         registerIpcCommand(IpcCommand.MpdGetState, mpcConnection.getStatus);
+        registerIpcCommand(IpcCommand.GetAlbumPage, albumService.getAlbums);
 
-        albumService.getAlbums();
+        // albumService.getAlbums({
+        //     page: 1,
+        //     pageSize: 2
+        // }).then(resp => console.log(JSON.stringify(resp)));
     }
 };

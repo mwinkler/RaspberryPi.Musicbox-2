@@ -8,9 +8,5 @@ export default {
 
     quit() {
         ipcClient.sendCommand(IpcCommands.Quit);
-    },
-
-    openSelector() {
-        store.dispatch(CommonReducer.Creator.SetView('selector'));
     }
 }
