@@ -45,7 +45,9 @@ class Selector extends React.Component<ISelectorProps, {}> {
                 </div>
                 <div className="grid">
                     {this.props.page.albums.map(item => 
-                        <div className="item" style={{ backgroundImage: `url(${demoCover})` }} onClick={() => this.select(item)}></div>)}
+                        <div className="item" style={{ backgroundImage: `url(${demoCover})` }} onClick={() => this.select(item)}>
+                            <span>{item.title}</span>
+                        </div>)}
                 </div>
                 <div className="nav" onClick={this.nextPage}>
                     <i className="fa fa-chevron-circle-right"></i>

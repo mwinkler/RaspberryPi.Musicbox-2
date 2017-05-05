@@ -26,7 +26,7 @@ export default {
                         return;
                     }
 
-                    //console.log(`Content of '${req.path}': ${JSON.stringify(files)}`);
+                    //console.log(`Content of '${fullPath}': ${JSON.stringify(files)}`);
                     
                     // create albums
                     let albums = new List(files)
@@ -55,5 +55,10 @@ export default {
                 rej(error);
             }
         });
+    },
+
+    extractAlbumCover(path: string) {
+
+         fs.readdirSync(path);
     }
 }

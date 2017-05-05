@@ -18,7 +18,6 @@ $items-v: 2;
 
     > .grid {
         height: 100vh;
-        background-color: greenyellow;
         flex: 1;
         overflow: hidden;
 
@@ -30,6 +29,15 @@ $items-v: 2;
             box-sizing: border-box;
             background-size: cover;
             background-position: center center;
+            overflow: hidden;
+
+            > span {
+                font-size: 3vh;
+                color: #fff;
+                text-shadow: 2px 2px #000;
+                display: inline-block;
+                vertical-align: top;   
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import albumService from './albumService';
 
 function registerIpcCommand (command, action: Function) {
 
-    ipcMain.on(command, async (event, ...args) => {
+    ipcMain.on(command, async (event, args) => {
 
         try {
             console.log(`Revice IPC command '${command}' arguments: ${JSON.stringify(args)}`);

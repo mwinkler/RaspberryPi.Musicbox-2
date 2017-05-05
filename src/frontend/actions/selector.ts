@@ -16,6 +16,17 @@ const selectorActions = {
 
         // open view
         store.dispatch(CommonReducer.Creator.SetView(CommonReducer.View.Selector));
+    },
+
+    select(album: IAlbum) {
+
+        // set album
+        store.dispatch(CommonReducer.Creator.SetCurrentAlbum(album));
+
+        // start play
+
+        // switch to player view
+        store.dispatch(CommonReducer.Creator.SetView(CommonReducer.View.Player));
     }
 
 }
