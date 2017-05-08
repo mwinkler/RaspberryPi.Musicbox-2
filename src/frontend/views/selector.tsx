@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import './selector.scss';
 import { IRootState } from '../store';
 import commonActions from '../actions/common';
-import playerActions from '../actions/player';
+import selectorActions from '../actions/selector';
 
 import * as demoCover from '../images/cover.png';
 
@@ -28,7 +28,8 @@ class Selector extends React.Component<ISelectorProps, {}> {
     }
 
     select(item: IAlbum) {
-        playerActions.open();
+
+        selectorActions.select(item);
     }
 
     previousPage() {
@@ -45,7 +46,7 @@ class Selector extends React.Component<ISelectorProps, {}> {
                 </div>
                 <div className="grid">
                     {this.props.page.albums.map(item => 
-                        <div className="item" style={{ backgroundImage: `url(${demoCover})` }} onClick={() => this.select(item)}>
+                        <div className="item" style={{ backgroundImage: `url(data:image/png;base64,${item.cover})` }} onClick={() => this.select(item)}>
                             <span>{item.title}</span>
                         </div>)}
                 </div>

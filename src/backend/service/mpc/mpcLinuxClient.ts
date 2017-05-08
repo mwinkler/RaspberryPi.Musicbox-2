@@ -81,6 +81,10 @@ export default {
 
             async volumeDown() {
                 await sendCommand('volume', ['-1']);
+            },
+
+            async play(path: string) {
+                
             }
         }
 

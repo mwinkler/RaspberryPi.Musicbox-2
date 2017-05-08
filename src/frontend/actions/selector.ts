@@ -24,6 +24,7 @@ const selectorActions = {
         store.dispatch(CommonReducer.Creator.SetCurrentAlbum(album));
 
         // start play
+        ipcClient.play(album.path);
 
         // switch to player view
         store.dispatch(CommonReducer.Creator.SetView(CommonReducer.View.Player));

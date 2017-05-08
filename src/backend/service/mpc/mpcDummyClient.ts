@@ -19,7 +19,7 @@ export default {
             time: new Date(0)
         };
 
-        const connection = {
+        const connection: IMpcConnection = {
             
             getStatus() {
                 status.title = status.state === MpcState.stop
@@ -63,8 +63,12 @@ export default {
             volumeDown() {
                 status.volume = Math.max(0, status.volume - 1);
                 console.log(`Set volume down to ${status.volume}`);
+            },
+
+            play(path: string) {
+                console.log(`Play album '${path}'`);
             }
-        }
+        };
 
         return connection;
     }

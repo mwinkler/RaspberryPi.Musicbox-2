@@ -37,6 +37,11 @@ const ipcClient = {
     getAlbumPage(options: IAlbumPageOptions): Promise<IAlbumPage> {
 
         return ipcClient.sendCommand(IpcCommand.GetAlbumPage, options);
+    },
+
+    play(path: string): Promise<void> {
+        
+        return ipcClient.sendCommand<void>(IpcCommand.MpdPlay, path);
     }
 }
 
