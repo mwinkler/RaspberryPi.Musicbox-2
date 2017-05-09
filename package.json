@@ -22,7 +22,6 @@
     "@types/react-dom": "^0.14.23",
     "@types/react-redux": "^4.4.39",
     "electron": "^1.4.13",
-    "find": "^0.2.7",
     "font-awesome": "^4.7.0",
     "linqts": "^1.8.2",
     "moment": "^2.18.1",
