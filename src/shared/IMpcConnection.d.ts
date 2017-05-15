@@ -6,4 +6,5 @@ interface IMpcConnection {
     previousTrack();
     volumeUp();
     volumeDown();
+    play(path: string);
 }

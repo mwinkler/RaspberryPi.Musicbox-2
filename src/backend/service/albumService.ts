@@ -1,10 +1,13 @@
 
+// lib
 import * as fs from 'fs';
 //import * as path from 'path';
-import config from '../../shared/config';
 import { List } from 'linqts';
 
-export default {
+// app
+import config from '../../shared/config';
+
+const albumService = {
 
     getAlbums(options: IAlbumPageOptions): Promise<IAlbumPage> {
         
@@ -19,37 +22,29 @@ export default {
                 console.log(`Get content of '${fullPath}'`);
 
                 // read directory
-                fs.readdir(fullPath, (err, files) => {
+                var files = fs.readdirSync(fullPath);
 
-                    if (err) {
-                        rej(err)
-                        return;
-                    }
+                // create albums
+                let albums = new List(files)
+                    .Skip(options.pageSize * (options.page - 1))
+                    .Take(options.pageSize)
+                    .Select(folder => ({
+                        title: folder,
+                        cover: albumService.extractAlbumCover(fullPath + '/' + folder),
+                        path: options.path + '/' + folder
+                    } as IAlbum));
 
-                    //console.log(`Content of '${fullPath}': ${JSON.stringify(files)}`);
-                    
-                    // create albums
-                    let albums = new List(files)
-                        .Skip(options.pageSize * (options.page - 1))
-                        .Take(options.pageSize)
-                        .Select(folder => ({
-                            title: folder,
-                            cover: '',
-                            path: options.path + '/' + folder
-                        } as IAlbum));
+                let totalPages =  Math.floor(files.length / options.pageSize) + (files.length % options.pageSize > 0 ? 1 : 0);
 
-                    let totalPages =  Math.floor(files.length / options.pageSize) + (files.length % options.pageSize > 0 ? 1 : 0);
-
-                    ret({
-                        albums: albums.ToArray(),
-                        currentPage: options.page,
-                        totalPages: totalPages,
-                        isFirstPage: options.page === 1,
-                        isLastPage: options.page === totalPages,
-                        totalAlbums: files.length,
-                        hasSubAlbums: false
-                    } as IAlbumPage);
-                });
+                ret({
+                    albums: albums.ToArray(),
+                    currentPage: options.page,
+                    totalPages: totalPages,
+                    isFirstPage: options.page === 1,
+                    isLastPage: options.page === totalPages,
+                    totalAlbums: files.length,
+                    hasSubAlbums: false
+                } as IAlbumPage);
             } 
             catch (error) {
                 rej(error);
@@ -57,8 +52,20 @@ export default {
         });
     },
 
-    extractAlbumCover(path: string) {
+    extractAlbumCover(path: string): string {
+        
+        let files = fs.readdirSync(path)
+            .filter(path => /\.(jpe?g|png|gif)$/i.test(path));
+            
+        if (files.length === 0)
+            return null;
+        
+        let fullPath = path + '/' + files[0];
 
-         fs.readdirSync(path);
+        console.log(`Read cover from '${fullPath}'`);
+
+        return fs.readFileSync(fullPath, 'base64');
     }
 }
+
+export default albumService;

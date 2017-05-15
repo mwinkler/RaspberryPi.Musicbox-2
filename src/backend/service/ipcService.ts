@@ -37,6 +37,7 @@ export default {
         registerIpcCommand(IpcCommand.MpdVolumeDown, mpcConnection.volumeDown);
         registerIpcCommand(IpcCommand.MpdGetState, mpcConnection.getStatus);
         registerIpcCommand(IpcCommand.GetAlbumPage, albumService.getAlbums);
+        registerIpcCommand(IpcCommand.MpdPlay, mpcConnection.play);
 
         // albumService.getAlbums({
         //     page: 1,
