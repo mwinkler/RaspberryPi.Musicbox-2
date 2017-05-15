@@ -1,0 +1,5 @@
+
+interface IHardwareService {
+    init();
+    shutdown();
+}
