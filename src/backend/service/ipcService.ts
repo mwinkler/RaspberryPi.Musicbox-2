@@ -3,6 +3,7 @@ import { app, ipcMain } from 'electron';
 import config from '../../shared/config';
 import IpcCommand from '../../shared/IpcCommand';
 import albumService from './albumService';
+import commonService from './commonService';
 
 function registerIpcCommand (command, action: Function) {
 
@@ -29,7 +30,7 @@ export default {
 
         const mpcConnection = config.mpcClient.connect();
         
-        registerIpcCommand(IpcCommand.Quit, () => app.quit());
+        registerIpcCommand(IpcCommand.Quit, commonService.quitAndShutdown);
         registerIpcCommand(IpcCommand.MpdTogglePlay, mpcConnection.togglePlay);
         registerIpcCommand(IpcCommand.MpdNextTrack, mpcConnection.nextTrack);
         registerIpcCommand(IpcCommand.MpdPreviousTrack, mpcConnection.previousTrack);

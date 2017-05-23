@@ -1,20 +1,29 @@
 
-import * as gpio from 'pi-gpio';
+import { Gpio } from 'pigpio';
+import { exec } from 'child_process';
+import commonService from '../commonService';
 
 const service: IHardwareService = {
 
     init: () => {
 
         // set boot pin to high
-        // gpio.open(16, "output", function(err) {		// Open pin 16 for output
-        //     gpio.write(16, 1, function() {			// Set pin 16 high (1)
-        //         gpio.close(16);						// Close pin 16
-        //     });
-        // });
+        let atxTx = new Gpio(4, { mode: Gpio.OUTPUT });
+        atxTx.digitalWrite(1);
+
+        // listen on atx rx pin for shutdown signal
+        let atxRx = new Gpio(17, { mode: Gpio.INPUT, pullUpDown: Gpio.PUD_DOWN })
+            .on('interrupt', (level) => {
+                if (level === 1) {
+                    console.log('ATX send shutdown signal');
+                    commonService.quitAndShutdown();
+                }
+            });
     },
 
     shutdown: () => {
 
+        exec('shutdown now -h');
     }
 }
 

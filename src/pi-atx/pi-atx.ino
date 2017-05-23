@@ -9,14 +9,14 @@ int state = 0;
 const int pinRelay = 0;
 const int pinOnboardLED = 1;
 const int pinButton = 2;
-const int pinRaspberryTx = 3;
-const int pinRaspberryRx = 4;
+const int pinRaspberryTx = 3;	// atx signal pi to shutdown
+const int pinRaspberryRx = 4;	// pi signal atx its booted up / pi signal atx to shutdown
 
 bool lastButton = 1;
 bool lastPiRx = 0;
 
 bool onboardLED = false;
-const int loopDelay = 10;
+const int loopDelay = 50;
 const int powerOffDelay = 15000;	// milliseconds
 int powerOffWaitTimer = 0;
 
