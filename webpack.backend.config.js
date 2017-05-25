@@ -37,5 +37,8 @@ module.exports = {
     node: {
         __dirname: false,
         __filename: false
+    },
+    externals: {
+        pigpio: 'commonjs pigpio'
     }
 }
