@@ -8,16 +8,16 @@ int state = 0;
 
 const int pinRelay = 0;
 const int pinOnboardLED = 1;
-const int pinButton = 2;
-const int pinRaspberryTx = 3;	// atx signal pi to shutdown
-const int pinRaspberryRx = 4;	// pi signal atx its booted up / pi signal atx to shutdown
+const int pinButton = 4;
+const int pinRaspberryTx = 3;	// signals pi to shut down
+const int pinRaspberryRx = 2;	// signals atx that pi is booted up and shutting down
 
-bool lastButton = 1;
+bool lastButton = 0;
 bool lastPiRx = 0;
 
 bool onboardLED = false;
-const int loopDelay = 50;
-const int powerOffDelay = 15000;	// milliseconds
+const int loopDelay = 10;
+const int powerOffDelay = 20000;	// milliseconds
 int powerOffWaitTimer = 0;
 
 void setup()
@@ -25,10 +25,10 @@ void setup()
 	pinMode(pinRelay, OUTPUT);
 	pinMode(pinButton, INPUT_PULLUP);
 	pinMode(pinRaspberryTx, OUTPUT);
-	pinMode(pinRaspberryRx, INPUT);
+	pinMode(pinRaspberryRx, INPUT_PULLUP);
 	pinMode(pinOnboardLED, OUTPUT);
 
-	digitalWrite(pinRelay, 0);
+	digitalWrite(pinRelay, 1);
 	digitalWrite(pinRaspberryTx, 0);
 	digitalWrite(pinOnboardLED, 0);
 }
@@ -45,7 +45,7 @@ void loop()
 		{
 			// Standby: Power relay
 			case 0:
-				digitalWrite(pinRelay, 1);
+				digitalWrite(pinRelay, 0);
 				state = 1;
 				break;
 
@@ -94,7 +94,7 @@ void loop()
 		// wait delay reached, power off
 		if (powerOffWaitTimer > powerOffDelay)
 		{
-			digitalWrite(pinRelay, 0);
+			digitalWrite(pinRelay, 1);
 			digitalWrite(pinRaspberryTx, 0);
 			digitalWrite(pinOnboardLED, 0);
 			state = 0;

@@ -14,7 +14,7 @@
     "start": "electron . --local",
     "start:debug": "electron . --local --debug --enable-logging",
     "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l",
-    "electron-rebuild": "electron-rebuild -f -w pigpio"
+    "electron-rebuild": "electron-rebuild --module-dir ./build --arch armv7l"
   },
   "dependencies": {
     "@types/electron": "^1.4.35",

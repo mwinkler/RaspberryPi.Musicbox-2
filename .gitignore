@@ -2,3 +2,5 @@ build/
 dist/
 node_modules/
 npm-debug.log*
+.vscode/arduino.json
+.vscode/c_cpp_properties.json
