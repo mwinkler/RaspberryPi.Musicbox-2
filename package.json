@@ -13,7 +13,9 @@
     "build-backend:watch": "webpack --config webpack.backend.config.js --watch",
     "start": "electron . --local",
     "start:debug": "electron . --local --debug --enable-logging",
-    "publish": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l",
+    "publish": "npm run electron-pack && npm run electron-restore-packages",
+    "electron-pack": "electron-packager ./build --out=dist --platform=linux --overwrite --arch=armv7l",
+    "electron-restore-packages": "cd build && npm install --ignore-scripts",
     "electron-rebuild": "electron-rebuild --module-dir ./build --arch armv7l"
   },
   "dependencies": {
