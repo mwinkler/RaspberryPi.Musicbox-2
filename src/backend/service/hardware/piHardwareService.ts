@@ -12,13 +12,15 @@ const service: IHardwareService = {
         atxTx.digitalWrite(0);
 
         // listen on atx rx pin for shutdown signal
-        let atxRx = new Gpio(17, { mode: Gpio.INPUT, pullUpDown: Gpio.PUD_DOWN })
-            .on('interrupt', level => {
-                if (level === 1) {
-                    console.log('ATX send shutdown signal');
-                    commonService.quitAndShutdown();
-                }
-            });
+        let atxRx = new Gpio(17, { mode: Gpio.INPUT, pullUpDown: Gpio.PUD_UP, edge: Gpio.EITHER_EDGE });
+        atxRx.on('interrupt', level => {
+            console.log(`GPIO change to level ${level}`);
+
+            if (level === 0) {
+                console.log('ATX send shutdown signal');
+                commonService.quitAndShutdown();
+            }
+        });
     },
 
     shutdown: () => {

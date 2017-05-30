@@ -29,7 +29,7 @@ void setup()
 	pinMode(pinOnboardLED, OUTPUT);
 
 	digitalWrite(pinRelay, 1);
-	digitalWrite(pinRaspberryTx, 0);
+	digitalWrite(pinRaspberryTx, 1);
 	digitalWrite(pinOnboardLED, 0);
 }
 
@@ -53,7 +53,7 @@ void loop()
 			case 2:
 				state = 3;
 				powerOffWaitTimer = 0;
-				digitalWrite(pinRaspberryTx, 1);
+				digitalWrite(pinRaspberryTx, 0);
 				digitalWrite(pinOnboardLED, 0);
 				break;
 		}
@@ -95,7 +95,7 @@ void loop()
 		if (powerOffWaitTimer > powerOffDelay)
 		{
 			digitalWrite(pinRelay, 1);
-			digitalWrite(pinRaspberryTx, 0);
+			digitalWrite(pinRaspberryTx, 1);
 			digitalWrite(pinOnboardLED, 0);
 			state = 0;
 		}
