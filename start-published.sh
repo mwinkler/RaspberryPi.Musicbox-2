@@ -1,0 +1,1 @@
+startx ./dist/musicbox-linux-armv7l/musicbox
