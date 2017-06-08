@@ -11,6 +11,7 @@ const int pinOnboardLED = 1;
 const int pinButton = 4;
 const int pinRaspberryTx = 3;	// signals pi to shut down
 const int pinRaspberryRx = 2;	// signals atx that pi is booted up and shutting down
+const int pinDisplayTransistor = 5;		// switch power on lcd display
 
 bool lastButton = 0;
 bool lastPiRx = 0;
@@ -27,10 +28,12 @@ void setup()
 	pinMode(pinRaspberryTx, OUTPUT);
 	pinMode(pinRaspberryRx, INPUT_PULLUP);
 	pinMode(pinOnboardLED, OUTPUT);
+	pinMode(pinDisplayTransistor, OUTPUT);
 
 	digitalWrite(pinRelay, 1);
 	digitalWrite(pinRaspberryTx, 1);
 	digitalWrite(pinOnboardLED, 0);
+	digitalWrite(pinDisplayTransistor, 0);
 }
 
 void loop()
@@ -43,17 +46,18 @@ void loop()
 	{
 		switch (state)
 		{
-			// Standby: Power relay
+			// Standby -> Booting
 			case 0:
-				digitalWrite(pinRelay, 0);
+				digitalWrite(pinRelay, 0);	// power on pinRelay
+				digitalWrite(pinDisplayTransistor, 1);	// power on display
 				state = 1;
 				break;
 
-			// Running: Signal pi to shutdown
+			// Running -> Shutdown
 			case 2:
 				state = 3;
 				powerOffWaitTimer = 0;
-				digitalWrite(pinRaspberryTx, 0);
+				digitalWrite(pinRaspberryTx, 0);	// signal pi to shutdown
 				digitalWrite(pinOnboardLED, 0);
 				break;
 		}
@@ -64,13 +68,13 @@ void loop()
 	{
 		switch (state)
 		{
-			// Booting: Pi is booted up
+			// Booting -> Running (Pi is booted up)
 			case 1:
 				digitalWrite(pinOnboardLED, 1);
 				state = 2;
 				break;
 
-			// Running: Pi has signaled, its shutting down
+			// Running -> Shutdown (Pi has signaled, its shutting down)
 			case 2:
 				state = 3;
 				powerOffWaitTimer = 0;
@@ -97,6 +101,7 @@ void loop()
 			digitalWrite(pinRelay, 1);
 			digitalWrite(pinRaspberryTx, 1);
 			digitalWrite(pinOnboardLED, 0);
+			digitalWrite(pinDisplayTransistor, 0); // power off display
 			state = 0;
 		}
 	}
